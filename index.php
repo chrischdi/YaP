@@ -11,9 +11,7 @@
 <?php
 include "inc/cms.php";
 ?>
-<title>
-<?php $cms->website->title(); ?>
-</title>
+<title><?php $cms->website->title(); ?> - <?php $cms->page->title(); ?></title>
 
 </head>
 <body>

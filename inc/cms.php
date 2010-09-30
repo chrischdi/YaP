@@ -33,6 +33,26 @@ class Db {
 		return $info->getElementsByTagName('webmaster')->item(0)->nodeValue;
 	}
 	
+	
+	function getSitemap() {
+		$sitemap = array();
+		$contents = $this->xml->getElementsByTagName('content');
+		foreach($contents as $content) {
+			// add an array to $sitemap for each page, containing id and title
+			$sitemap[] = array($content->getAttribute('id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
+		}
+		return $sitemap;
+	}
+	
+	
+	function isPage($id) {
+		$contents = $this->xml->getElementsByTagName('content');
+		foreach($contents as $content) {
+			if ($content->getAttribute('id') == $id) return True;
+		}
+		return False;
+	}
+	
 	function getPageTitle($id) {
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content){
@@ -50,13 +70,16 @@ class Db {
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content){
 			if( $content->getAttribute('id') == $id) {
-				if($content->getAttribute('visible') == "true") {
-					$title = $content->getElementsByTagName('main')->item(0)->nodeValue;
-					break;
+				if($content->getElementsByTagName('type')->item(0)->nodeValue == "html") {
+					if($content->getAttribute('visible') == "true") {
+						return $content->getElementsByTagName('main')->item(0)->nodeValue;
+						break;
+					}
+					// else { ToDo: GoTo id="0" (home) or return error message }
 				}
+				// else { ToDo: Plugins! }
 			}
 		}
-		return $title;
 	}
 	
 	function getPageIdByTitle($title) {
@@ -108,14 +131,17 @@ class Website {
 
 class Nav {
 	
-	
+	// $sitemap == array(array(id, title), ...)
+	var $sitemap;
 	
 	function Nav($db) {
-		
+		$this->sitemap = $db->getSitemap();
 	}
 	
 	function menu() {
-		
+		foreach($this->sitemap as $page) {
+			echo "<a href=\"?id=".$page[0]."\">".$page[1]."</a><br>\n";
+		}
 	}
 	
 }
@@ -130,13 +156,13 @@ class Page {
 	
 	function Page($db) {
 		
-		// get page-id
-		if (isset($_GET['id'])) $this->id = $_GET['id'];
+		// get page-id and check if page exists
+		if (isset($_GET['id']) AND $db->isPage($_GET['id'])) $this->id = $_GET['id'];
 		else $this->id = 0; // home
 		
 		$this->title = $db->getPageTitle($this->id);
-		$this->bodyWebsite = $db->getPageBody($this->id);
-				
+		$this->body = $db->getPageBody($this->id);
+		
 	}
 	
 	function title() {

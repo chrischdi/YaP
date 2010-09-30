@@ -7,10 +7,14 @@
 	</website>
 	<content id="0" restriction="" visible="true">
 		<title>Home</title>
+		<type>html</type>
+		<author>admin</author>
 		<main>home, sweet home</main>
 	</content>
 	<content id="1" restriction="" visible="true">
 		<title><![CDATA[ [PAGE_TITLE] ]]></title>
+		<type>html</type>
+		<author><![CDATA[someone]]></author>
 		<main><![CDATA[<h1>Stuff</h1><p>Some stuff.</p>]]></main>
 	</content>
 </database>
