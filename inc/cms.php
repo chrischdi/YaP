@@ -126,6 +126,12 @@ class Website {
 		
 		echo $this->webmaster;
 	}
+	function isBackend(){
+		$path = Explode('/', $_SERVER['SCRIPT_NAME']);
+		$file = $path[count($path) - 1];
+		if($file == "backend.php") return true;
+		else return false;
+	}
 }
 
 
@@ -138,7 +144,7 @@ class Nav {
 		$this->sitemap = $db->getSitemap();
 	}
 	
-	function menu() {
+	function menu() {	// ToDo: import template for navigation, before, in and/or after link
 		foreach($this->sitemap as $page) {
 			echo "<a href=\"?id=".$page[0]."\">".$page[1]."</a><br>\n";
 		}
@@ -155,14 +161,12 @@ class Page {
 	var $body;
 	
 	function Page($db) {
-		
 		// get page-id and check if page exists
 		if (isset($_GET['id']) AND $db->isPage($_GET['id'])) $this->id = $_GET['id'];
 		else $this->id = 0; // home
 		
 		$this->title = $db->getPageTitle($this->id);
 		$this->body = $db->getPageBody($this->id);
-		
 	}
 	
 	function title() {
@@ -200,7 +204,7 @@ class Cms {
 		
 		// get database
 		$db		= &new Db();
-		
+
 		// get instances of container-classes
 		$this->website	= &new Website($db);
 		$this->nav	= &new Nav($db);
