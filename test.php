@@ -19,6 +19,9 @@ $cms->page->title();
 echo "<br><br>cms->page->id()<br>&nbsp;";
 $cms->page->id();
 
+echo "<br><br>cms->nav->menu()<br>&nbsp;";
+$cms->nav->menu();
+
 echo "<br><br>cms->page->body()<br>&nbsp;";
 $cms->page->body();
 
