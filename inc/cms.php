@@ -58,6 +58,21 @@ class Db {
 		}
 		return $title;
 	}
+	
+	function getPageIdByTitle($title) {
+		
+		$contents = $this->xml->getElementsByTagName('content');
+		$id = -1;
+		
+		foreach($contents as $content){
+			if( $content->getElementsByTagName('title')->item(0)->nodeValue == $title) {
+				$id = $content->getAttribute('id');
+				break;
+			}
+		}
+		
+		return $id;
+	}
 }
 
 // ToDo: class for static website information (like title, domain, webmaster)

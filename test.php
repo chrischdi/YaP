@@ -22,4 +22,8 @@ $cms->page->id();
 echo "<br><br>cms->page->body()<br>&nbsp;";
 $cms->page->body();
 
+echo "<br><br>TESTING<br>db->getPageIdByTitle('Home')<br>&nbsp;";
+$db = new Db();
+echo $db->getPageIdByTitle('Home');
+
 ?></tt></body></html>
