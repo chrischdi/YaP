@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database>
+	<website>
+		<title>webseite</title>
+		<domain>www.example.com</domain>
+		<webmaster>Max Mustermann</webmaster>
+	</website>
+	<content id="0" restriction="" visible="true">
+		<title>Home</title>
+		<main>home, sweet home</main>
+	</content>
+	<content id="1" restriction="" visible="true">
+		<title><![CDATA[ [PAGE_TITLE] ]]></title>
+		<main><![CDATA[<h1>Stuff</h1><p>Some stuff.</p>]]></main>
+	</content>
+</database>
