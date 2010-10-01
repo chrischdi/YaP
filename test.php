@@ -29,13 +29,14 @@ echo "<br><br>TESTING<br>db->getPageIdByTitle('Home')<br>&nbsp;";
 $db = new Db();
 echo $db->getPageIdByTitle('Home');
 
-echo "<br><br>get all ->db->getNextAsLink()<br>&nbsp;";
-while ($cms->nav->getNextAsLink()) { echo "<br>\n&nbsp;"; }
-
-echo "<br><br>get all ->db->getNextTitle()<br>&nbsp;";
-while ($cms->nav->getNextTitle()) { echo "<br>\n&nbsp;"; }
-
-echo "<br><br>get all ->db->getNextId()<br>&nbsp;";
-while ($cms->nav->getNextId()) { echo "<br>\n&nbsp;"; }
+echo "<br><br>get all: ->nav->itemId() - ->nav->itemTitle() - ->nav->itemUrl()<br>&nbsp;";
+do {
+	$cms->nav->itemId();
+	echo " - ";
+	$cms->nav->itemTitle();
+	echo " - ";
+	$cms->nav->itemUrl();
+	echo "<br>\n&nbsp;";
+} while ($cms->nav->getNext());
 
 ?></tt></body></html>

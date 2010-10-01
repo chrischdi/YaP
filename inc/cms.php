@@ -168,44 +168,32 @@ class Nav {
 		}
 	}
 	
-	function getNextAsLink() {
-		if ($this->itemcounter < sizeof($this->sitemap)) {
-			echo "<a href=\"id=".$this->sitemap[$this->itemcounter][0]."\">".htmlentities($this->sitemap[$this->itemcounter][1])."</a>";
+	function getNext() {
+		if ($this->itemcounter < (sizeof($this->sitemap) - 1)) {
 			$this->itemcounter++;
 			return True;
 		}
 		else {
-			// reset counter for next use
 			$this->itemcounter = 0;
 			return False;
 		}
 	}
 	
-	function getNextTitle() {
-		if ($this->itemcounter < sizeof($this->sitemap)) {
-			echo htmlentities($this->sitemap[$this->itemcounter][1]);
-			$this->itemcounter++;
-			return True;
-		}
-		else {
-			// reset counter for next use
-			$this->itemcounter = 0;
-			return False;
-		}
+	function itemLink() {
+		echo "<a href=\"?id=".$this->sitemap[$this->itemcounter][0]."\">".htmlentities($this->sitemap[$this->itemcounter][1])."</a>";
 	}
 	
-	function getNextId() {
-		if ($this->itemcounter < sizeof($this->sitemap)) {
-			echo $this->sitemap[$this->itemcounter][0];
-			$this->itemcounter++;
-			return True;
-		}
-		else {
-			// reset counter for next use
-			$this->itemcounter = 0;
-			return False;
-		}
+	function itemUrl() {
+		echo "?id=".$this->sitemap[$this->itemcounter][0];
 	}
+	
+	function itemTitle() {
+		echo htmlentities($this->sitemap[$this->itemcounter][1]);
+	}
+	
+	function itemId() {
+		echo $this->sitemap[$this->itemcounter][0];
+	 }
 }
 
 
