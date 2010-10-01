@@ -46,9 +46,10 @@ class Db {
 	
 	
 	function isPage($id) {
+		// returns True if Page exists AND is has attribute visible="true"
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content) {
-			if ($content->getAttribute('id') == $id) return True;
+			if (($content->getAttribute('id') == $id) AND ($content->getAttribute('visible') == "true")) return True;
 		}
 		return False;
 	}
@@ -57,13 +58,18 @@ class Db {
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content){
 			if( $content->getAttribute('id') == $id) {
-				if($content->getAttribute('visible') == "true") {
-					$title = $content->getElementsByTagName('title')->item(0)->nodeValue;
-					break;
-				}
+				return $content->getElementsByTagName('title')->item(0)->nodeValue;
 			}
 		}
-		return $title;
+	}
+	
+	function getPageAuthor($id) {
+		$contents = $this->xml->getElementsByTagName('content');
+		foreach($contents as $content) {
+			if ($content->getAttribute('id') == $id) {
+				return $content->getElementsByTagName('author')->item(0)->nodeValue;
+			}
+		}
 	}
 	
 	function getPageBody($id) {
@@ -71,11 +77,7 @@ class Db {
 		foreach($contents as $content){
 			if( $content->getAttribute('id') == $id) {
 				if($content->getElementsByTagName('type')->item(0)->nodeValue == "html") {
-					if($content->getAttribute('visible') == "true") {
-						return $content->getElementsByTagName('main')->item(0)->nodeValue;
-						break;
-					}
-					// else { ToDo: GoTo id="0" (home) or return error message }
+					return $content->getElementsByTagName('main')->item(0)->nodeValue;
 				}
 				// else { ToDo: Plugins! }
 			}
@@ -202,6 +204,7 @@ class Page {
 	
 	var $title;
 	var $id;
+	var $author;
 	var $body;
 	var $head;
 	
@@ -211,6 +214,7 @@ class Page {
 		else $this->id = 0; // home
 		
 		$this->title = $db->getPageTitle($this->id);
+		$this->author = $db->getPageAuthor($this->id);
 		$this->body = $db->getPageBody($this->id);
 		$this->head = $db->getPageHead($this->id);
 	}
@@ -221,6 +225,10 @@ class Page {
 	
 	function id() {
 		echo $this->id;
+	}
+	
+	function author() {
+		echo $this->author;
 	}
 	
 	function body() {
