@@ -1,4 +1,7 @@
 <?
+// Include plugins (all files in inc/plugins/)
+foreach(glob("inc/plugins/*.php") as $filename) include($filename);
+
 // ToDo
 class Db {
 	
@@ -73,29 +76,25 @@ class Db {
 	}
 	
 	function getPageBody($id) {
+		global $PLUGINS;
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content){
 			if( $content->getAttribute('id') == $id) {
-				if($content->getElementsByTagName('type')->item(0)->nodeValue == "html") {
-					return $content->getElementsByTagName('main')->item(0)->nodeValue;
-				}
-				// else { ToDo: Plugins! }
+				$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
+				$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
+				return $PLUGINS[$type]->parseBody($main);
 			}
 		}
 	}
 	
 	function getPageHead($id) {
+		global $PLUGINS;
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach ($contents as $content) {
 			if ($content->getAttribute('id') == $id) {
-				if($content->getElementsByTagName('type')->item(0)->nodeValue == "html") {
-					// return empty header
-					return;
-				}
-				else {
-					// ToDo: some plugin foo
-					break;
-				}
+				$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
+				$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
+				return $PLUGINS[$type]->parseHead($main);
 			}
 		}
 	}

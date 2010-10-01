@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database>
 	<website>
-		<title>webseite</title>
-		<domain>www.example.com</domain>
-		<webmaster>Max Mustermann</webmaster>
+		<title>YaP</title>
+		<domain>github.com/chrischdi/YaP</domain>
+		<webmaster>chrischdi, 9er</webmaster>
 	</website>
 	<content id="0" restriction="" visible="true">
 		<title>Home</title>
 		<type>html</type>
-		<author>admin</author>
-		<main>home, sweet home</main>
+		<author><![CDATA[admin]]></author>
+		<main><![CDATA[<h1>Home</h1><p>Welcome to YaP!</p>]]></main>
 	</content>
 	<content id="1" restriction="" visible="true">
-		<title><![CDATA[ [PAGE_TITLE] ]]></title>
+		<title><![CDATA[html-demo]]></title>
 		<type>html</type>
 		<author><![CDATA[someone]]></author>
-		<main><![CDATA[<h1>Stuff</h1><p>Some stuff.</p>]]></main>
+		<main><![CDATA[<h1>html</h1><p>Demo using html-plugin.</p>]]></main>
+	</content>
+	<content id="2" restriction="" visible="true">
+		<title><![CDATA[iframe-demo]]></title>
+		<type>iframe</type>
+		<author><![CDATA[someone else]]></author>
+		<main><![CDATA[http://www.google.com/]]></main>
 	</content>
 </database>
