@@ -82,6 +82,22 @@ class Db {
 		}
 	}
 	
+	function getPageHead($id) {
+		$contents = $this->xml->getElementsByTagName('content');
+		foreach ($contents as $content) {
+			if ($content->getAttribute('id') == $id) {
+				if($content->getElementsByTagName('type')->item(0)->nodeValue == "html") {
+					// return empty header
+					return;
+				}
+				else {
+					// ToDo: some plugin foo
+					break;
+				}
+			}
+		}
+	}
+	
 	function getPageIdByTitle($title) {
 		
 		$contents = $this->xml->getElementsByTagName('content');
@@ -139,17 +155,57 @@ class Nav {
 	
 	// $sitemap == array(array(id, title), ...)
 	var $sitemap;
+	var $itemcounter;
 	
 	function Nav($db) {
 		$this->sitemap = $db->getSitemap();
+		$this->itemcounter = 0;
 	}
 	
 	function menu() {	// ToDo: import template for navigation, before, in and/or after link
 		foreach($this->sitemap as $page) {
-			echo "<a href=\"?id=".$page[0]."\">".$page[1]."</a><br>\n";
+			echo "<a href=\"?id=".$page[0]."\">".htmlentities($page[1])."</a>\n";
 		}
 	}
 	
+	function getNextAsLink() {
+		if ($this->itemcounter < sizeof($this->sitemap)) {
+			echo "<a href=\"id=".$this->sitemap[$this->itemcounter][0]."\">".htmlentities($this->sitemap[$this->itemcounter][1])."</a>";
+			$this->itemcounter++;
+			return True;
+		}
+		else {
+			// reset counter for next use
+			$this->itemcounter = 0;
+			return False;
+		}
+	}
+	
+	function getNextTitle() {
+		if ($this->itemcounter < sizeof($this->sitemap)) {
+			echo htmlentities($this->sitemap[$this->itemcounter][1]);
+			$this->itemcounter++;
+			return True;
+		}
+		else {
+			// reset counter for next use
+			$this->itemcounter = 0;
+			return False;
+		}
+	}
+	
+	function getNextId() {
+		if ($this->itemcounter < sizeof($this->sitemap)) {
+			echo $this->sitemap[$this->itemcounter][0];
+			$this->itemcounter++;
+			return True;
+		}
+		else {
+			// reset counter for next use
+			$this->itemcounter = 0;
+			return False;
+		}
+	}
 }
 
 
@@ -159,6 +215,7 @@ class Page {
 	var $title;
 	var $id;
 	var $body;
+	var $head;
 	
 	function Page($db) {
 		// get page-id and check if page exists
@@ -167,6 +224,7 @@ class Page {
 		
 		$this->title = $db->getPageTitle($this->id);
 		$this->body = $db->getPageBody($this->id);
+		$this->head = $db->getPageHead($this->id);
 	}
 	
 	function title() {
@@ -181,6 +239,9 @@ class Page {
 		echo $this->body;
 	}
 	
+	function head() {
+		echo $this->head;
+	}
 }
 
 class Cms {
