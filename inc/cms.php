@@ -15,6 +15,7 @@ class Db {
 		$database = "xml/db.xml";
 		if (file_exists($database)){
 			$doc = new DOMDocument();
+            $doc->validateOnParse = true;
 			$doc->load($database);
 			return $doc;
 		}
@@ -42,75 +43,64 @@ class Db {
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content) {
 			// add an array to $sitemap for each page, containing id and title
-			$sitemap[] = array($content->getAttribute('id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
+			$sitemap[] = array($content->getAttribute('xml:id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
 		}
 		return $sitemap;
 	}
 	
-	
 	function isPage($id) {
 		// returns True if Page exists AND is has attribute visible="true"
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach($contents as $content) {
-			if (($content->getAttribute('id') == $id) AND ($content->getAttribute('visible') == "true")) return True;
-		}
-		return False;
+		$content = $this->xml->getElementByID($id);
+		if((isset($content)) AND ($content->getAttribute('visible') == "true")) return True;
+        else return False;
+		
 	}
 	
 	function getPageTitle($id) {
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach($contents as $content){
-			if( $content->getAttribute('id') == $id) {
-				return $content->getElementsByTagName('title')->item(0)->nodeValue;
-			}
-		}
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) return $content->getElementsByTagName('title')->item(0)->nodeValue;
+        else return "Fehler in getPageTitle()";
 	}
 	
 	function getPageAuthor($id) {
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach($contents as $content) {
-			if ($content->getAttribute('id') == $id) {
-				return $content->getElementsByTagName('author')->item(0)->nodeValue;
-			}
-		}
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) return $content->getElementsByTagName('author')->item(0)->nodeValue;
+        else return "Fehler in getPageAuthor()";
 	}
 	
 	function getPageBody($id) {
 		global $PLUGINS;
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach($contents as $content){
-			if( $content->getAttribute('id') == $id) {
-				$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
-				$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-				return $PLUGINS[$type]->parseBody($main);
-			}
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) {
+			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
+			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
+			return $PLUGINS[$type]->parseBody($main);
 		}
+		else return "Fehler in getPageBody()";
 	}
 	
 	function getPageHead($id) {
 		global $PLUGINS;
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach ($contents as $content) {
-			if ($content->getAttribute('id') == $id) {
-				$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
-				$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-				return $PLUGINS[$type]->parseHead($main);
-			}
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) {
+			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
+			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
+			return $PLUGINS[$type]->parseHead($main);
 		}
+		else return "Fehler in getPageHead()";
+		
 	}
 	
 	function getPageIdByTitle($title) {
-		
 		$contents = $this->xml->getElementsByTagName('content');
 		$id = -1;
 		
 		foreach($contents as $content){
 			if( $content->getElementsByTagName('title')->item(0)->nodeValue == $title) {
-				$id = $content->getAttribute('id');
+				$id = $content->getAttribute('xml:id');
 				break;
 			}
 		}
-		
 		return $id;
 	}
 }
@@ -210,7 +200,7 @@ class Page {
 	function Page($db) {
 		// get page-id and check if page exists
 		if (isset($_GET['id']) AND $db->isPage($_GET['id'])) $this->id = $_GET['id'];
-		else $this->id = 0; // home
+		else $this->id = "a"; // home
 		
 		$this->title = $db->getPageTitle($this->id);
 		$this->author = $db->getPageAuthor($this->id);
@@ -237,6 +227,7 @@ class Page {
 	function head() {
 		echo $this->head;
 	}
+
 }
 
 class Cms {

@@ -5,19 +5,19 @@
 		<domain>github.com/chrischdi/YaP</domain>
 		<webmaster>chrischdi, 9er</webmaster>
 	</website>
-	<content id="0" restriction="" visible="true">
+	<content xml:id="a" restriction="" visible="true">
 		<title>Home</title>
 		<type>html</type>
 		<author><![CDATA[admin]]></author>
 		<main><![CDATA[<h1>Home</h1><p>Welcome to YaP!</p>]]></main>
 	</content>
-	<content id="1" restriction="" visible="true">
+	<content xml:id="b" restriction="" visible="true">
 		<title><![CDATA[html-demo]]></title>
 		<type>html</type>
 		<author><![CDATA[someone]]></author>
 		<main><![CDATA[<h1>html</h1><p>Demo using html-plugin.</p>]]></main>
 	</content>
-	<content id="2" restriction="" visible="true">
+	<content xml:id="c" restriction="" visible="true">
 		<title><![CDATA[iframe-demo]]></title>
 		<type>iframe</type>
 		<author><![CDATA[someone else]]></author>
