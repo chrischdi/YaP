@@ -13,7 +13,14 @@ class DbWrite extends Db {
 		$content = $this->xml->getElementByID($id);
 		$main = $content->getElementsByTagName('main')->item(0);
 		$main->appendChild($string);
-		$this->saveXML();
+		$this->saveXML();   //later it's in the function, executing this function
+	}
+	
+	function setContentTitle($id, $string){
+		$content = $this->xml->getElementByID($id);
+		$main = $content->getElementsByTagName('title')->item(0);
+		$main->nodeValue = $string;
+		$this->saveXML();   //later it's in the function, executing this function
 	}
 }
 
@@ -22,8 +29,8 @@ class Backend {
 		// get database
 		$db		= &new DbWrite();
 		// get instances of container-classes
+		$this->nav = &new Nav($db);
 		$this->website	= &new Website($db);
-		$this->nav	= &new Nav($db);
 		$this->page	= &new Page($db);
 	}
 }
