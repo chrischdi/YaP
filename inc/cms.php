@@ -74,7 +74,7 @@ class Db {
 		if(isset($content)) {
 			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
 			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-			return $PLUGINS[$type]->parseBody($main);
+			return $PLUGINS[$type]->getBody($main);
 		}
 		else return "Fehler in getPageBody()";
 	}
@@ -85,7 +85,7 @@ class Db {
 		if(isset($content)) {
 			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
 			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-			return $PLUGINS[$type]->parseHead($main);
+			return $PLUGINS[$type]->getHead($main);
 		}
 		else return "Fehler in getPageHead()";
 		
@@ -252,7 +252,7 @@ class Cms {
 		// get database
 		$db		= &new Db();
 
-		// get instances of container-classes
+		// get instances of container-classesp
 		$this->website	= &new Website($db);
 		$this->nav	= &new Nav($db);
 		$this->page	= &new Page($db);

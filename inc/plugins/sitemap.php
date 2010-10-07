@@ -1,7 +1,7 @@
 <?php
 
 class SitemapPlugin {
-	function parseBody($main) {
+	function getBody($main) {
 		$tempdb = new Db();
 		$tempnav = new Nav($tempdb);
 		$sitemap = $tempnav->sitemap;
@@ -13,8 +13,18 @@ class SitemapPlugin {
 		return $ret;
 	}
 	
-	function parseHead($main) {
+	function getHead($main) {
 		return;
+	}
+	
+	function getMain($post) {
+		// <main> can stay empty, no information needed here
+		return "";
+	}
+	
+	function getEditor() {
+		// ToDo (?) editor to edit ... well ... nothing really
+		return "";
 	}
 }
 
