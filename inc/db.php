@@ -49,20 +49,29 @@ class Db {
 		// returns True if Page exists AND is has attribute visible="true"
 		$content = $this->xml->getElementByID($id);
 		if((isset($content)) AND ($content->getAttribute('visible') == "true")) return True;
-        else return False;
+        	else return False;
 		
+	}
+	
+	function strInMain($id, $string) {
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) {
+			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
+			if (strpos($main, $string) !== False) return True;
+		}
+		return False;
 	}
 	
 	function getPageTitle($id) {
 		$content = $this->xml->getElementByID($id);
 		if(isset($content)) return $content->getElementsByTagName('title')->item(0)->nodeValue;
-        else return "Fehler in getPageTitle()";
+        	else return "Fehler in getPageTitle()";
 	}
 	
 	function getPageAuthor($id) {
 		$content = $this->xml->getElementByID($id);
 		if(isset($content)) return $content->getElementsByTagName('author')->item(0)->nodeValue;
-        else return "Fehler in getPageAuthor()";
+        	else return "Fehler in getPageAuthor()";
 	}
 	
 	function getPageBody($id) {
