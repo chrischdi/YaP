@@ -1,6 +1,6 @@
 <?
-include "cms.php";
-unset($cms);
+// include Db
+include("inc/db.php");
 
 class DbWrite extends Db {
     function saveXML() {
