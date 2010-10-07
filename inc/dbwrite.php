@@ -7,7 +7,38 @@ class DbWrite extends Db {
     function saveXML() {
 		$database = "xml/db2.xml"; //for testing time, later it will get the $database value, wich $db->getXML(); is using.
 		$this->xml->save($database);
+		unset($db->xml);
+		$this->xml = $this->getXML();
 	}
+
+    function createContent(){
+        $id = "a".time();
+        echo $id;
+        $doc = $this->xml->getElementsByTagName('database')->item(0);
+        
+        // Create parent element
+        $content = $this->xml->createElement('content');
+        
+        // Create child elements
+        $title = $this->xml->createElement('title');
+        $author = $this->xml->createElement('author');
+        $type = $this->xml->createElement('type');
+        $main = $this->xml->createElement('main');
+        
+        // Set parent's attributes
+        $content->setAttribute('xml:id', $id);
+        $content->setAttribute('restriction', null);
+        $content->setAttribute('visible', 'true');
+        
+        // Append childs
+        $content->appendChild($title);
+        $content->appendChild($author);
+        $content->appendChild($type);
+        $content->appendChild($main);
+        $doc->appendChild($content);
+        
+        return $id;
+    }
 
 	function setContentTitle($id, $string){
         $string = $this->xml->createCDATASection($string);
