@@ -8,19 +8,37 @@ class DbWrite extends Db {
 		$this->xml->save($database);
 	}
 
-    function setContentMain($id, $string){ 
+    function setContentMain($id, $string){
         $string = $this->xml->createCDATASection($string);
+		$nodenew = $this->xml->createElement('main');
+		$nodenew->appendChild($string);
 		$content = $this->xml->getElementByID($id);
-		$main = $content->getElementsByTagName('main')->item(0);
-		$main->appendChild($string);
-		$this->saveXML();   //later it's in the function, executing this function
+		$node = $content->getElementsByTagName('main')->item(0);
+		$content->replaceChild($nodenew, $node);
+	}
+	
+	function setContentType($id, $string){
+		$content = $this->xml->getElementByID($id);
+		$node = $content->getElementsByTagName('type')->item(0);
+		$node->nodeValue = $string;
+	}
+	
+	function setContentAuthor($id, $string){
+        $string = $this->xml->createCDATASection($string);
+		$nodenew = $this->xml->createElement('author');
+		$nodenew->appendChild($string);
+		$content = $this->xml->getElementByID($id);
+		$node = $content->getElementsByTagName('author')->item(0);
+		$content->replaceChild($nodenew, $node);
 	}
 	
 	function setContentTitle($id, $string){
+        $string = $this->xml->createCDATASection($string);
+		$nodenew = $this->xml->createElement('title');
+		$nodenew->appendChild($string);
 		$content = $this->xml->getElementByID($id);
-		$main = $content->getElementsByTagName('title')->item(0);
-		$main->nodeValue = $string;
-		$this->saveXML();   //later it's in the function, executing this function
+		$node = $content->getElementsByTagName('title')->item(0);
+		$content->replaceChild($nodenew, $node);
 	}
 }
 
