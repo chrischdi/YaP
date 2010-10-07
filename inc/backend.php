@@ -8,21 +8,15 @@ class DbWrite extends Db {
 		$this->xml->save($database);
 	}
 
-    function setContentMain($id, $string){
+	function setContentTitle($id, $string){
         $string = $this->xml->createCDATASection($string);
-		$nodenew = $this->xml->createElement('main');
+		$nodenew = $this->xml->createElement('title');
 		$nodenew->appendChild($string);
 		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('main')->item(0);
+		$node = $content->getElementsByTagName('title')->item(0);
 		$content->replaceChild($nodenew, $node);
 	}
-	
-	function setContentType($id, $string){
-		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('type')->item(0);
-		$node->nodeValue = $string;
-	}
-	
+
 	function setContentAuthor($id, $string){
         $string = $this->xml->createCDATASection($string);
 		$nodenew = $this->xml->createElement('author');
@@ -32,12 +26,18 @@ class DbWrite extends Db {
 		$content->replaceChild($nodenew, $node);
 	}
 	
-	function setContentTitle($id, $string){
+	function setContentType($id, $string){
+		$content = $this->xml->getElementByID($id);
+		$node = $content->getElementsByTagName('type')->item(0);
+		$node->nodeValue = $string;
+	}
+
+    function setContentMain($id, $string){
         $string = $this->xml->createCDATASection($string);
-		$nodenew = $this->xml->createElement('title');
+		$nodenew = $this->xml->createElement('main');
 		$nodenew->appendChild($string);
 		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('title')->item(0);
+		$node = $content->getElementsByTagName('main')->item(0);
 		$content->replaceChild($nodenew, $node);
 	}
 }
@@ -46,7 +46,11 @@ class Backend {
 	function Backend() {
 		// get database
 		$db		= &new DbWrite();
-		// get instances of container-classes
+		$db->setContentAuthor("b", "chrischdi");
+		$db->setContentTitle("b", "chrischdi");
+		$db->setContentType("b", "frame");
+		$db->setContentMain("b", "chrischdi");
+		$db->saveXML();		// get instances of container-classes
 		$this->nav = &new Nav($db);
 		$this->website	= &new Website($db);
 		$this->page	= &new Page($db);
