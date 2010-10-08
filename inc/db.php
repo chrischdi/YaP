@@ -9,7 +9,7 @@ class Db {
 	}
 	
 	function getxml(){
-		$database = "xml/db2.xml";
+		$database = "xml/db.xml";
 		if (file_exists($database)){
 			$doc = new DOMDocument();
             $doc->validateOnParse = true;
