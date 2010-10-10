@@ -23,7 +23,7 @@ class AdminPanel {
 		
 		// nav is static, website reads from db,
 		// but page-type depends on _GET
-		switch ($_GET['site']) {
+		switch ($_GET['edit']) {
 			case "page":
 				$this->page = &new AdminPage($db);
 				break;

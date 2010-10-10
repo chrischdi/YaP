@@ -9,20 +9,20 @@
 <html>
 <head>
 <?php
-include "inc/backend.php";
+include "inc/adminpanel.php";
 ?>
-<title>Backend - <?php $be->website->title(); ?> - <?php $be->page->title(); ?></title>
-
+<title>Backend - <?php $ap->website->title(); ?> - <?php $ap->page->title(); ?></title>
+<?php $ap->page->head(); ?>
 </head>
 <body>
 <div>
 <?php
-$be->nav->menu();
+$ap->nav->menu();
 ?>
 </div>
 <div>
 <?php
-$be->page->body();
+$ap->page->body();
 ?>
 </div>
 </body>

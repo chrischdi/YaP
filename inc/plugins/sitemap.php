@@ -22,9 +22,13 @@ class SitemapPlugin {
 		return "";
 	}
 	
-	function getEditor() {
+	function getEditorBody() {
 		// ToDo (?) editor to edit ... well ... nothing really
-		return "";
+		return;
+	}
+	
+	function getEditorHead() {
+		return;
 	}
 }
 
