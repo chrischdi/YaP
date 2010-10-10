@@ -19,9 +19,13 @@ class HtmlPlugin {
 		return $post['html-content'];
 	}
 	
-	function getEditor() {
+	function getEditorBody($main) {
 		// ToDo: return an wysiwyg-editor (as html)
-		return "";
+		return "<h2>Page Content</h2><textarea>".$main."</textarea><br>\n";
+	}
+	
+	function getEditorHead($main) {
+		return;
 	}
 }
 

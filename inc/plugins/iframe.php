@@ -19,9 +19,13 @@ class IframePlugin {
 		return $post['iframe-url'];
 	}
 	
-	function getEditor() {
+	function getEditorBody($main) {
 		// ToDo: return html to edit the iframe-url
-		return "";
+		return "<h2>Iframe URL</h2><input type=\"text\" name=\"iframe-url\" value=\"".$main."\"><br>\n";
+	}
+	
+	function getEditorHead($main) {
+		return;
 	}
 }
 

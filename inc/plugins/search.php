@@ -31,11 +31,19 @@ class SearchPlugin {
 	}
 	
 	function getHead($main) {
-		return "";
+		return;
 	}
 	
 	function getMain($post) {
-		return "";
+		return;
+	}
+	
+	function getEditorBody($main) {
+		return;
+	}
+	
+	function getEditorHead($main) {
+		return;
 	}
 	
 }

@@ -5,7 +5,7 @@ include("inc/db.php");
 
 class DbWrite extends Db {
     function saveXML() {
-		$database = "xml/db2.xml"; //for testing time, later it will get the $database value, wich $db->getXML(); is using.
+		$database = "xml/db.xml"; //for testing time, later it will get the $database value, wich $db->getXML(); is using.
 		$this->xml->save($database);
 		unset($db->xml);
 		$this->xml = $this->getXML();
@@ -71,6 +71,20 @@ class DbWrite extends Db {
 		$content = $this->xml->getElementByID($id);
 		$node = $content->getElementsByTagName('main')->item(0);
 		$content->replaceChild($nodenew, $node);
+	}
+	
+	// getMain is here, because it will be used in page administration only
+	function getMain($id) {
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) {
+			return $content->getElementsByTagName('main')->item(0)->nodeValue;
+		}
+	}
+	function getType($id) {
+		$content = $this->xml->getElementByID($id);
+		if(isset($content)) {
+			return $content->getElementsByTagName('type')->item(0)->nodeValue;
+		}
 	}
 }
 
