@@ -21,6 +21,18 @@ class AdminPanel {
 		$this->nav	= &new AdminNav(); // no db here, static navigation in admin-panel
 		$this->website	= &new Website($db);
 		
+		// if _POST, set _GET to suitable overview-page
+		// _POST-data will be handled by $this->page (constructor)
+		if ($_POST) {
+			switch ($_POST['edit'] == "page") {
+				case "page":
+					unset($_GET);
+					$_GET['edit'] = "page";
+				//case "user":
+				//	
+			}
+		}
+		
 		// nav is static, website reads from db,
 		// but page-type depends on _GET
 		switch ($_GET['edit']) {
@@ -34,7 +46,15 @@ class AdminPanel {
 			//case "general":
 			//	$this->page = &new AdminGeneral($db);
 			//	break;
+			default:
+				$this->page = &new AdminPage($db);
+				break;
 		}
+	}
+	
+	// handles POST data to create/change pages
+	function editPage() {
+
 	}
 }
 

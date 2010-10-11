@@ -11,7 +11,7 @@ class IframePlugin {
 	}
 	
 	function getHead($main) {
-		return;
+		return "<link rel=\"stylesheet\" href=\"css/iframe.css\">";
 	}
 	
 	function getMain($post) {

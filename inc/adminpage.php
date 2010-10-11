@@ -12,6 +12,30 @@ class AdminPage extends Page {
 	var $head;
 	
 	function AdminPage($db) {
+		
+		// handle _POST
+		if ($_POST) {
+			switch ($_POST['edit'] == "page") {
+				case "page":
+					if ($_POST['id'] == "new") {
+						// get new id that's not in db already
+						$id = $db->createContent();
+					}
+					else {
+						if ($db->isPage($_POST['id'])) $id = $_POST['id'];
+						else die("Failed: Entry not found");
+					}
+					$db->setContentTitle($id, $_POST['title']);
+					$db->setContentType($id, $_POST['type']);
+					// ToDo: get from _SESSION: $db->setContentAuthor($id, ... );
+					global $PLUGINS;
+					$db->setContentMain($id, $PLUGINS[$_POST['type']]->getMain($_POST));
+					
+					// save changes
+					$db->saveXML();	
+			}
+		}
+		
 		// get page-id and check if page exists
 		if (isset($_GET['id']) and ($_GET['id'] !== "new") and $db->isPage($_GET['id'])) {
 			
@@ -23,13 +47,16 @@ class AdminPage extends Page {
 			$type = $db->getType($this->id);
 			
 			// build form
-			$ret = "<form method=\"post\" action=\"".$_SERVER['REQUEST_URI']."\">";
+			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<h2>Title</h2>";
+			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
+			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$type."\">\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"".$this->title."\">";
-			$ret .= "<input type=\"hidden\" name=\"id\" value=\"a".$this->id."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";
 			// plugin stuff
 			global $PLUGINS;
 			$ret .= $PLUGINS[$type]->getEditorBody($main);
+			$ret .= "<input type=\"submit\" value=\"save\">\n";
 			$ret .= "</form>";
 			$this->body = $ret;
 			$this->head = $PLUGINS[$type]->getEditorHead($main);
@@ -37,19 +64,22 @@ class AdminPage extends Page {
 		elseif ($_GET['id'] == "new") {
 			
 			// create empty form
-			$this->id = time();
+			$this->id = "new";
 			$this->title = "new page";
 			$this->author = ""; // ToDo
 			
 			
 			// build form
-			$ret = "<form method=\"post\" action=\"".$_SERVER['REQUEST_URI']."\">";
+			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<h2>Title</h2>\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"\">\n";
-			$ret .= "<input type=\"hidden\" name=\"id\" value=\"a".$this->id."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
+			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$_GET['type']."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";
 			// plugin stuff
 			global $PLUGINS;
 			$ret .= $PLUGINS[$_GET['type']]->getEditorBody("");
+			$ret .= "<input type=\"submit\" value=\"create\">\n";
 			$ret .= "</form>";
 			$this->body = $ret;
 			$this->head = $PLUGINS[$_GET['type']]->getEditorHead("");
@@ -79,7 +109,7 @@ class AdminPage extends Page {
 			$ret .= "<form method=\"get\" action=\"".$_SERVER['REQUEST_URI']."\">\n";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"new\">\n";
-			$ret .= "<h2>New Page</h2>\nPlugin: <select name=\"type\">\n";
+			$ret .= "<h2>New Page</h2>\nType: <select name=\"type\">\n";
 			global $PLUGINS;
 			foreach(array_keys($PLUGINS) as $type) {
 				$ret .= "<option>".$type."</option>\n";

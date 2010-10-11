@@ -5,7 +5,7 @@ include("inc/db.php");
 
 class DbWrite extends Db {
     function saveXML() {
-		$database = "xml/db.xml"; //for testing time, later it will get the $database value, wich $db->getXML(); is using.
+		$database = "xml/db.xml";
 		$this->xml->save($database);
 		unset($db->xml);
 		$this->xml = $this->getXML();

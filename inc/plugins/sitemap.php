@@ -14,7 +14,7 @@ class SitemapPlugin {
 	}
 	
 	function getHead($main) {
-		return;
+		return "<link rel=\"stylesheet\" href=\"css/sitemap.css\">";
 	}
 	
 	function getMain($post) {
