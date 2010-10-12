@@ -7,9 +7,10 @@ include("inc/dbwrite.php");
 
 include("inc/adminnav.php");
 include("inc/website.php");
+include("inc/admingeneral.php");
 include("inc/adminpage.php");
 //include("inc/adminuser.php");
-//inlcude("inc/admingeneral.php");
+
 
 class AdminPanel {
 	
@@ -24,12 +25,16 @@ class AdminPanel {
 		// if _POST, set _GET to suitable overview-page
 		// _POST-data will be handled by $this->page (constructor)
 		if ($_POST) {
-			switch ($_POST['edit'] == "page") {
+			switch ($_POST['edit']) {
 				case "page":
 					unset($_GET);
 					$_GET['edit'] = "page";
+					break;
 				//case "user":
-				//	
+				case "general":
+					unset($_GET);
+					$_GET['edit'] = "general";
+					break;
 			}
 		}
 		
@@ -47,14 +52,9 @@ class AdminPanel {
 			//	$this->page = &new AdminGeneral($db);
 			//	break;
 			default:
-				$this->page = &new AdminPage($db);
+				$this->page = &new AdminGeneral($db);
 				break;
 		}
-	}
-	
-	// handles POST data to create/change pages
-	function editPage() {
-
 	}
 }
 
