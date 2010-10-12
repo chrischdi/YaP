@@ -1,6 +1,6 @@
 <?
 
-include("inc/page.php");
+include_once("inc/page.php");
 
 // ToDo: class for site elements (information about current page
 class AdminPage extends Page {
@@ -14,26 +14,23 @@ class AdminPage extends Page {
 	function AdminPage($db) {
 		
 		// handle _POST
-		if ($_POST) {
-			switch ($_POST['edit'] == "page") {
-				case "page":
-					if ($_POST['id'] == "new") {
-						// get new id that's not in db already
-						$id = $db->createContent();
-					}
-					else {
-						if ($db->isPage($_POST['id'])) $id = $_POST['id'];
-						else die("Failed: Entry not found");
-					}
-					$db->setContentTitle($id, $_POST['title']);
-					$db->setContentType($id, $_POST['type']);
-					// ToDo: get from _SESSION: $db->setContentAuthor($id, ... );
-					global $PLUGINS;
-					$db->setContentMain($id, $PLUGINS[$_POST['type']]->getMain($_POST));
-					
-					// save changes
-					$db->saveXML();	
+		if ($_POST and ($_POST['edit'] == "page")) {
+			if ($_POST['id'] == "new") {
+				// get new id that's not in db already
+				$id = $db->createContent();
 			}
+			else {
+				if ($db->isPage($_POST['id'])) $id = $_POST['id'];
+				else die("Failed: Entry not found");
+			}
+			$db->setContentTitle($id, $_POST['title']);
+			$db->setContentType($id, $_POST['type']);
+			// ToDo: get from _SESSION: $db->setContentAuthor($id, ... );
+			global $PLUGINS;
+			$db->setContentMain($id, $PLUGINS[$_POST['type']]->getMain($_POST));
+			
+			// save changes
+			$db->saveXML();
 		}
 		
 		// get page-id and check if page exists
