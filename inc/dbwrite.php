@@ -13,7 +13,6 @@ class DbWrite extends Db {
 
     function createContent(){
         $id = "a".time();
-        echo $id;
         $doc = $this->xml->getElementsByTagName('database')->item(0);
         
         // Create parent element
@@ -40,43 +39,46 @@ class DbWrite extends Db {
         return $id;
     }
 
-	function setContentTitle($id, $string){
+    function setContentNodeCData($id, $string, $part){
         $string = $this->xml->createCDATASection($string);
-		$nodenew = $this->xml->createElement('title');
-		$nodenew->appendChild($string);
-		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('title')->item(0);
-		$content->replaceChild($nodenew, $node);
-	}
+	    $nodenew = $this->xml->createElement($part);
+	    $nodenew->appendChild($string);
+	    $content = $this->xml->getElementByID($id);
+	    $node = $content->getElementsByTagName($part)->item(0);
+	    $content->replaceChild($nodenew, $node);
+    }
 
-	function setContentAuthor($id, $string){
-        $string = $this->xml->createCDATASection($string);
-		$nodenew = $this->xml->createElement('author');
-		$nodenew->appendChild($string);
+	function setContentNode($id, $string, $part){
 		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('author')->item(0);
-		$content->replaceChild($nodenew, $node);
-	}
-	
-	function setContentType($id, $string){
-		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('type')->item(0);
+		$node = $content->getElementsByTagName($part)->item(0);
 		$node->nodeValue = $string;
 	}
-
-    function setContentMain($id, $string){
-        $string = $this->xml->createCDATASection($string);
-		$nodenew = $this->xml->createElement('main');
-		$nodenew->appendChild($string);
+	
+	function setContentAttribute($id, $string, $part){
 		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName('main')->item(0);
-		$content->replaceChild($nodenew, $node);
-	}
+		$content->setAttribute($part, $string);
+    }
 	
 	function deleteContent($id){
 	    $content = $this->xml->getElementByID($id);
         $doc = $this->xml->getElementsByTagName('database')->item(0);
         $doc->removeChild($content);
+	}
+
+    function setContentTitle($id, $string){
+        $this->setContentNodeCData($id, $string, 'title');
+    }
+
+	function setContentAuthor($id, $string){
+        $this->setContentNodeCData($id, $string, 'author');
+	}
+	
+	function setContentType($id, $string){
+        $this->setContentNode($id, $string, 'type');
+	}
+
+    function setContentMain($id, $string){
+        $this->setContentNodeCData($id, $string, 'main');
 	}
 	
 	// getMain is here, because it will be used in page administration only

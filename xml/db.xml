@@ -6,10 +6,11 @@
 		<webmaster>chrischdi, 9er</webmaster>
 	</website>
 	<content xml:id="a1286461108" restriction="" visible="true">
-		<title>Home</title>
+		<title><![CDATA[Home]]></title>
 		<type>html</type>
 		<author><![CDATA[admin]]></author>
-		<main><![CDATA[<h1>Home</h1><p>Welcome to YaP!</p>]]></main>
+		<main><![CDATA[<h1>Home</h1>
+<p>Welcome to YaP!</p>]]></main>
 	</content>
 	<content xml:id="a1286461109" restriction="" visible="true">
 		<title><![CDATA[html-demo]]></title>
