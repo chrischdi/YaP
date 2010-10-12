@@ -7,7 +7,7 @@ class DbWrite extends Db {
     function saveXML() {
 		$database = "xml/db.xml";
 		$this->xml->save($database);
-		unset($db->xml);
+		unset($this->xml);
 		$this->xml = $this->getXML();
 	}
 
@@ -27,7 +27,7 @@ class DbWrite extends Db {
         // Set parent's attributes
         $content->setAttribute('xml:id', $id);
         $content->setAttribute('restriction', null);
-        $content->setAttribute('visible', 'true');
+        $content->setAttribute('visible', 'false');
         
         // Append childs
         $content->appendChild($title);
@@ -55,7 +55,7 @@ class DbWrite extends Db {
 	}
 
     // setter for content
-	function setContentAttribute($id, $string, $part){
+	function setAttribute($id, $string, $part){
 		$content = $this->xml->getElementByID($id);
 		$content->setAttribute($part, $string);
     }
