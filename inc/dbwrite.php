@@ -73,6 +73,12 @@ class DbWrite extends Db {
 		$content->replaceChild($nodenew, $node);
 	}
 	
+	function deleteContent($id){
+	    $content = $this->xml->getElementByID($id);
+        $doc = $this->xml->getElementsByTagName('database')->item(0);
+        $doc->removeChild($content);
+	}
+	
 	// getMain is here, because it will be used in page administration only
 	function getMain($id) {
 		$content = $this->xml->getElementByID($id);
