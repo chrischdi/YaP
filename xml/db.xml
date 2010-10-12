@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database>
-	<website>
+	<website xml:id="default">
 		<title>YaP</title>
 		<domain>github.com/chrischdi/YaP</domain>
-		<webmaster>chrischdi, 9er</webmaster>
+		<webmaster>9er, chrischdi</webmaster>
 	</website>
 	<content xml:id="a1286461108" restriction="" visible="true">
 		<title><![CDATA[Home]]></title>

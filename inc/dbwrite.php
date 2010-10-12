@@ -39,7 +39,7 @@ class DbWrite extends Db {
         return $id;
     }
 
-    function setContentNodeCData($id, $string, $part){
+    function setNodeCData($id, $string, $part){
         $string = $this->xml->createCDATASection($string);
 	    $nodenew = $this->xml->createElement($part);
 	    $nodenew->appendChild($string);
@@ -48,12 +48,13 @@ class DbWrite extends Db {
 	    $content->replaceChild($nodenew, $node);
     }
 
-	function setContentNode($id, $string, $part){
+	function setNode($id, $string, $part){
 		$content = $this->xml->getElementByID($id);
 		$node = $content->getElementsByTagName($part)->item(0);
 		$node->nodeValue = $string;
 	}
-	
+
+    // setter for content
 	function setContentAttribute($id, $string, $part){
 		$content = $this->xml->getElementByID($id);
 		$content->setAttribute($part, $string);
@@ -66,21 +67,34 @@ class DbWrite extends Db {
 	}
 
     function setContentTitle($id, $string){
-        $this->setContentNodeCData($id, $string, 'title');
+        $this->setNodeCData($id, $string, 'title');
     }
 
 	function setContentAuthor($id, $string){
-        $this->setContentNodeCData($id, $string, 'author');
+        $this->setNodeCData($id, $string, 'author');
 	}
 	
 	function setContentType($id, $string){
-        $this->setContentNode($id, $string, 'type');
+        $this->setNode($id, $string, 'type');
 	}
 
     function setContentMain($id, $string){
-        $this->setContentNodeCData($id, $string, 'main');
+        $this->setNodeCData($id, $string, 'main');
 	}
 	
+    // setter for website information
+    function setWebsiteTitle($string){
+        $this->setNode('default', $string, 'title');
+    }
+
+    function setWebsiteDomain($string){
+        $this->setNode('default', $string, 'domain');
+    }
+
+    function setWebsiteWebmaster($string){
+        $this->setNode('default', $string, 'webmaster');
+    }
+        
 	// getMain is here, because it will be used in page administration only
 	function getMain($id) {
 		$content = $this->xml->getElementByID($id);
