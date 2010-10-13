@@ -57,7 +57,7 @@ class AdminPage extends Page {
 
 			// delete question
 			$ret = "<h1>Delete Page</h1>\n";
-			$ret .= "<p>Do you realy want to delete the &quot;".$this->title."&quot; page?</p>\n";
+			$ret .= "<p>Do you realy want to delete the &quot;".htmlentities($this->title)."&quot; page?</p>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"delete\" value=\"true\">";

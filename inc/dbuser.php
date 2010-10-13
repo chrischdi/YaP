@@ -73,7 +73,22 @@ class DbUser {
             exit;
         }
 	}
-	
+
+    function setNodeCData($id, $string, $part){
+    	if($this->xml->getElementByID($id) !== null) {
+            $string = $this->xml->createCDATASection($string);
+	        $nodenew = $this->xml->createElement($part);
+	        $nodenew->appendChild($string);
+	        $content = $this->xml->getElementByID($id);
+	        $node = $content->getElementsByTagName($part)->item(0);
+	        $content->replaceChild($nodenew, $node);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
+    }
+
 	function setAttribute($id, $string, $part){
     	if($this->xml->getElementByID($id) !== null) {
 		    $content = $this->xml->getElementByID($id);
@@ -110,7 +125,7 @@ class DbUser {
     }
 
     function setUserName($id, $string){
-        $this->setNode($id, $string, 'name');
+        $this->setNodeCData($id, stripslashes($string), 'name');
     }
 
     function setUserPassword($id, $string){
@@ -118,7 +133,7 @@ class DbUser {
     }
 
     function setUserRights($id, $string){
-        $this->setNode($id, $string, 'rights');
+        $this->setNodeCData($id, $string, 'rights');
     }
     
     	function getUsers() {

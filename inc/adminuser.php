@@ -51,7 +51,7 @@ class AdminUser extends Page {
 			$this->title = $dbuser->getUserName($id);
 			// delete question
 			$ret = "<h1>Delete User</h1>\n";
-			$ret .= "<p>Do you realy want to delete the user &quot;".$this->title."&quot;?</p>\n";
+			$ret .= "<p>Do you realy want to delete the user &quot;".htmlentities($this->title)."&quot;?</p>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
 			$ret .= "<input type=\"hidden\" name=\"delete\" value=\"true\">";
