@@ -20,9 +20,14 @@ class AdminPage extends Page {
 				$id = $db->createContent();
 			}
 			else {
-				if ($db->isPage($_POST['id'])) $id = $_POST['id'];
-				else die("Failed: Entry not found");
+				$id = $_POST['id'];
 			}
+			
+			if (isset($_POST['visible']) and ($_POST['visible'] == "true")) {
+				$db->setAttribute($id, "true", "visible");
+			}
+			else $db->setAttribute($id, "false", "visible");
+			
 			$db->setContentTitle($id, $_POST['title']);
 			$db->setContentType($id, $_POST['type']);
 			// ToDo: get from _SESSION: $db->setContentAuthor($id, ... );
@@ -34,22 +39,27 @@ class AdminPage extends Page {
 		}
 		
 		// get page-id and check if page exists
-		if (isset($_GET['id']) and ($_GET['id'] !== "new") and $db->isPage($_GET['id'])) {
+		if (isset($_GET['id']) and ($_GET['id'] !== "new")) {
 			
 			// get page contents
 			$this->id = $_GET['id'];
-			$this->title = $db->getPageTitle($this->id);
-			$this->author = $db->getPageAuthor($this->id);
-			$main = $db->getMain($this->id);
-			$type = $db->getType($this->id);
+			$id = $this->id;
+			$this->title = $db->getPageTitle($id);
+			$this->author = $db->getPageAuthor($id);
+			$main = $db->getMain($id);
+			$type = $db->getType($id);
 			
 			// build form
-			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
+			$ret = "<h1>Edit Page</h1>\n";
+			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
+			if ($db->isPage($id)) $checked = " checked=\"checked\""; // only true, if page is visible
+			else $checked = "";
+			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\"".$checked.">&nbsp;visible\n";
 			$ret .= "<h2>Title</h2>";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$type."\">\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"".$this->title."\">";
-			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			// plugin stuff
 			global $PLUGINS;
 			$ret .= $PLUGINS[$type]->getEditorBody($main);
@@ -65,9 +75,10 @@ class AdminPage extends Page {
 			$this->title = "new page";
 			$this->author = ""; // ToDo
 			
-			
 			// build form
+			$ret = "<h1>New Page</h1>\n";
 			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
+			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\">&nbsp;visible\n";
 			$ret .= "<h2>Title</h2>\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"\">\n";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
@@ -89,15 +100,15 @@ class AdminPage extends Page {
 			$this->head = "";
 			
 			$sitemap = $db->getSitemap();
-			$ret = "<h2>List of pages</h2>\n<table>";
+			$ret = "<h2>List Of Pages</h2>\n<table class=\"pages\">";
 			foreach($sitemap as $page) {
 				$ret .= "<tr>";
 				// Title
-				$ret .= "<td>".htmlentities($page[1])."</td>";
+				$ret .= "<td id=\"page-name\">".htmlentities($page[1])."</td>";
 				// edit-button
-				$ret .= "<td><a href=\"?edit=page&id=".$page[0]."\">EDIT</a></td>";
+				$ret .= "<td id=\"edit-button\"><a href=\"?edit=page&id=".$page[0]."\">EDIT</a></td>";
 				// delete-button
-				$ret .= "<td>DELETE</td>";
+				$ret .= "<td id=\"delete-button\">DELETE</td>";
 				$ret .= "</tr>\n";
 			}
 			$ret .= "</tr></table>\n";

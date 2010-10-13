@@ -17,7 +17,9 @@ class AdminGeneral extends Page {
 		
 		// handle _POST
 		if ($_POST and ($_POST['edit'] == "general")) {
-			// ToDo: do some db-stuff
+			$db->setWebsiteTitle($_POST['title']);
+			$db->setWebsiteDomain($_POST['domain']);
+			$db->setWebsiteWebmaster($_POST['webmaster']);
 			
 			// save changes
 			$db->saveXML();
@@ -31,12 +33,13 @@ class AdminGeneral extends Page {
 			$ret .= "";
 		}
 		
-		$ret .= "<form method=\"post\" action=\"".$_SERVER['REQUEST_URI']."\">\n<table>\n";
-		$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
-		$ret .= "<tr><th>Website</th><th></th></tr>\n";
-		$ret .= "<tr><td>Title</td><td><input type=\"text\" name=\"title\" value=\"".$db->getWebsiteTitle()."\"></td></tr>\n";
-		$ret .= "<tr><td>Domain</td><td><input type=\"text\" name=\"domain\" value=\"".$db->getWebsiteDomain()."\"></td></tr>\n";
-		$ret .= "<tr><td>Webmaster</td><td><input type=\"text\" name=\"webmaster\" value=\"".$db->getWebsiteWebmaster()."\"></td></tr>\n";
+		$ret .= "<form method=\"post\" action=\"".$_SERVER['REQUEST_URI']."\">\n<table class=\"general\">\n";
+		$ret .= "<input type=\"hidden\" name=\"edit\" value=\"general\">\n";
+		$ret .= "<h2>Website</h2>
+		\n";
+		$ret .= "<tr><td id=\"item-name\">Title</td><td><input type=\"text\" name=\"title\" value=\"".$db->getWebsiteTitle()."\"></td></tr>\n";
+		$ret .= "<tr><td id=\"item-name\">Domain</td><td><input type=\"text\" name=\"domain\" value=\"".$db->getWebsiteDomain()."\"></td></tr>\n";
+		$ret .= "<tr><td id=\"item-name\">Webmaster</td><td><input type=\"text\" name=\"webmaster\" value=\"".$db->getWebsiteWebmaster()."\"></td></tr>\n";
 		$ret .= "<tr><td></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
 		$ret .= "</table></form>";
 		

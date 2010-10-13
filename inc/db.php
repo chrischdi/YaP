@@ -40,7 +40,9 @@ class Db {
 		$contents = $this->xml->getElementsByTagName('content');
 		foreach($contents as $content) {
 			// add an array to $sitemap for each page, containing id and title
-			$sitemap[] = array($content->getAttribute('xml:id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
+			if ($content->getAttribute('visible') == "true") {
+				$sitemap[] = array($content->getAttribute('xml:id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
+			}
 		}
 		return $sitemap;
 	}

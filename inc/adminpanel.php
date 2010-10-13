@@ -19,9 +19,6 @@ class AdminPanel {
 		// get database
 		$db		= &new DbWrite();
 		
-		$this->nav	= &new AdminNav(); // no db here, static navigation in admin-panel
-		$this->website	= &new Website($db);
-		
 		// if _POST, set _GET to suitable overview-page
 		// _POST-data will be handled by $this->page (constructor)
 		if ($_POST) {
@@ -55,6 +52,9 @@ class AdminPanel {
 				$this->page = &new AdminGeneral($db);
 				break;
 		}
+				
+		$this->nav	= &new AdminNav(); // no db here, static navigation in admin-panel
+		$this->website	= &new Website($db);
 	}
 }
 

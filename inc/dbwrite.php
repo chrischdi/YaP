@@ -84,15 +84,15 @@ class DbWrite extends Db {
 	
     // setter for website information
     function setWebsiteTitle($string){
-        $this->setNode('default', $string, 'title');
+        $this->setNodeCData('default', $string, 'title');
     }
 
     function setWebsiteDomain($string){
-        $this->setNode('default', $string, 'domain');
+        $this->setNodeCData('default', $string, 'domain');
     }
 
     function setWebsiteWebmaster($string){
-        $this->setNode('default', $string, 'webmaster');
+        $this->setNodeCData('default', $string, 'webmaster');
     }
         
 	// getMain is here, because it will be used in page administration only
@@ -107,6 +107,17 @@ class DbWrite extends Db {
 		if(isset($content)) {
 			return $content->getElementsByTagName('type')->item(0)->nodeValue;
 		}
+	}
+	
+	// overwrite function to get entries with attribute visible="false"
+	function getSitemap() {
+		$sitemap = array();
+		$contents = $this->xml->getElementsByTagName('content');
+		foreach($contents as $content) {
+			// add an array to $sitemap for each page, containing id and title
+			$sitemap[] = array($content->getAttribute('xml:id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
+		}
+		return $sitemap;
 	}
 }
 
