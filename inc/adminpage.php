@@ -77,7 +77,7 @@ class AdminPage extends Page {
 			
 			// build form
 			$ret = "<h1>New Page</h1>\n";
-			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
+			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\">&nbsp;visible\n";
 			$ret .= "<h2>Title</h2>\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"\">\n";
