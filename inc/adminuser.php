@@ -49,7 +49,6 @@ class AdminUser extends Page {
 			$this->id = $_GET['id'];
 			$id = $this->id;
 			$this->title = $dbuser->getUserName($id);
-
 			// delete question
 			$ret = "<h1>Delete User</h1>\n";
 			$ret .= "<p>Do you realy want to delete the user &quot;".$this->title."&quot;?</p>\n";

@@ -3,7 +3,8 @@
 class DbUser {
 	
 	var $xml;
-
+    var $error = "Error! Call an issue at www.github.com/chrischdi/YaP";
+    
 	function DbUser() {
 		$this->xml = $this->getxml();
 	}
@@ -56,25 +57,43 @@ class DbUser {
 		if(isset($node)){
 			return $node->getElementsByTagName($part)->item(0)->nodeValue;
 		}else{
-		    return "Node doesn't exist.";
+            echo $this->error;
         }
 	}
 
 	function setNode($id, $string, $part){
-		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName($part)->item(0);
-		$node->nodeValue = $string;
+    	if($this->xml->getElementByID($id) !== null) {
+		    $content = $this->xml->getElementByID($id);
+		    $node = $content->getElementsByTagName($part)->item(0);
+		    $node->nodeValue = $string;
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
 	}
 	
 	function setAttribute($id, $string, $part){
-		$content = $this->xml->getElementByID($id);
-		$content->setAttribute($part, $string);
+    	if($this->xml->getElementByID($id) !== null) {
+		    $content = $this->xml->getElementByID($id);
+		    $content->setAttribute($part, $string);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
     }
 	
 	function deleteContent($id){
-	    $content = $this->xml->getElementByID($id);
-        $doc = $this->xml->getElementsByTagName('database')->item(0);
-        $doc->removeChild($content);
+    	if($this->xml->getElementByID($id) !== null) {
+	        $content = $this->xml->getElementByID($id);
+            $doc = $this->xml->getElementsByTagName('database')->item(0);
+            $doc->removeChild($content);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
 	}
 
     function getUserName($id){

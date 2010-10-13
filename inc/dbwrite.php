@@ -4,6 +4,9 @@
 include("inc/db.php");
 
 class DbWrite extends Db {
+    
+    var $error = "Error! Call an issue at www.github.com/chrischdi/YaP";
+    
     function saveXML() {
 		$database = "xml/db.xml";
 		$this->xml->save($database);
@@ -40,30 +43,54 @@ class DbWrite extends Db {
     }
 
     function setNodeCData($id, $string, $part){
-        $string = $this->xml->createCDATASection($string);
-	    $nodenew = $this->xml->createElement($part);
-	    $nodenew->appendChild($string);
-	    $content = $this->xml->getElementByID($id);
-	    $node = $content->getElementsByTagName($part)->item(0);
-	    $content->replaceChild($nodenew, $node);
+    	if($this->xml->getElementByID($id) !== null) {
+            $string = $this->xml->createCDATASection($string);
+	        $nodenew = $this->xml->createElement($part);
+	        $nodenew->appendChild($string);
+	        $content = $this->xml->getElementByID($id);
+	        $node = $content->getElementsByTagName($part)->item(0);
+	        $content->replaceChild($nodenew, $node);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
     }
 
 	function setNode($id, $string, $part){
-		$content = $this->xml->getElementByID($id);
-		$node = $content->getElementsByTagName($part)->item(0);
-		$node->nodeValue = $string;
+    	if($this->xml->getElementByID("asd") !== null) {
+        	$content = $this->xml->getElementByID($id);
+		    $node = $content->getElementsByTagName($part)->item(0);
+		    $node->nodeValue = $string;
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
 	}
 
     // setter for content
 	function setAttribute($id, $string, $part){
-		$content = $this->xml->getElementByID($id);
-		$content->setAttribute($part, $string);
+    	if($this->xml->getElementByID($id) !== null) {
+		    $content = $this->xml->getElementByID($id);
+    		$content->setAttribute($part, $string);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
     }
 	
 	function deleteContent($id){
-	    $content = $this->xml->getElementByID($id);
-        $doc = $this->xml->getElementsByTagName('database')->item(0);
-        $doc->removeChild($content);
+    	if($this->xml->getElementByID($id) !== null) {
+	        $content = $this->xml->getElementByID($id);
+            $doc = $this->xml->getElementsByTagName('database')->item(0);
+            $doc->removeChild($content);
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
 	}
 
     function setContentTitle($id, $string){
