@@ -104,7 +104,7 @@ class AdminPage extends Page {
 			foreach($sitemap as $page) {
 				$ret .= "<tr>";
 				// Title
-				$ret .= "<td id=\"page-name\">".htmlentities($page[1])."</td>";
+				$ret .= "<td id=\"item-name\">".htmlentities($page[1])."</td>";
 				// edit-button
 				$ret .= "<td id=\"edit-button\"><a href=\"?edit=page&id=".$page[0]."\">EDIT</a></td>";
 				// delete-button
@@ -123,7 +123,7 @@ class AdminPage extends Page {
 				$ret .= "<option>".$type."</option>\n";
 			}
 			$ret .= "</select>\n";
-			$ret .= "<input type=\"submit\" value=\"new\">\n";
+			$ret .= "<input type=\"submit\" value=\"create new page\">\n";
 			$ret .= "</form>";
 			
 			$this->body = $ret;

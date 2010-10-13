@@ -78,15 +78,15 @@ class DbUser {
 	}
 
     function getUserName($id){
-        echo $this->getNode($id, 'name');
+        return $this->getNode($id, 'name');
     }
 
     function getUserPassword($id){
-        echo $this->getNode($id, 'password');
+        return $this->getNode($id, 'password');
     }
 
     function getUserRights($id){
-        echo $this->getNode($id, 'rights');
+        return $this->getNode($id, 'rights');
     }
 
     function setUserName($id, $string){
@@ -100,6 +100,16 @@ class DbUser {
     function setUserRights($id, $string){
         $this->setNode($id, $string, 'rights');
     }
+    
+    	function getUsers() {
+		$users = array();
+		$nodes = $this->xml->getElementsByTagName('user');
+		foreach($nodes as $user) {
+			// add an array to $sitemap for each page, containing id and title
+			$users[] = array($user->getAttribute('xml:id'), $user->getElementsByTagName('name')->item(0)->nodeValue);
+		}
+		return $users;
+	}
 }
 
 ?>

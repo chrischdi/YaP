@@ -4,12 +4,13 @@ foreach(glob("inc/plugins/*.php") as $filename) include($filename);
 
 // include Db
 include("inc/dbwrite.php");
+include("inc/dbuser.php");
 
 include("inc/adminnav.php");
 include("inc/website.php");
 include("inc/admingeneral.php");
 include("inc/adminpage.php");
-//include("inc/adminuser.php");
+include("inc/adminuser.php");
 
 
 class AdminPanel {
@@ -27,7 +28,11 @@ class AdminPanel {
 					unset($_GET);
 					$_GET['edit'] = "page";
 					break;
-				//case "user":
+				case "user":
+					unset($_GET);
+					$_GET['edit'] = "user";
+					break;
+					
 				case "general":
 					unset($_GET);
 					$_GET['edit'] = "general";
@@ -41,10 +46,9 @@ class AdminPanel {
 			case "page":
 				$this->page = &new AdminPage($db);
 				break;
-			// ~ToDo~
-			//case "user":
-			//	$this->page = &new AdminUser($db);
-			//	break;
+			case "user":
+				$this->page = &new AdminUser($db);
+				break;
 			//case "general":
 			//	$this->page = &new AdminGeneral($db);
 			//	break;
