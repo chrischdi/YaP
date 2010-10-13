@@ -14,7 +14,7 @@ class AdminUser extends Page {
 	function AdminUser($db) {
 		
 		$dbuser		= &new DbUser();
-		
+
 		// handle _POST
 		if ($_POST and ($_POST['edit'] == "user") and ($_POST['delete'] == "true")) {
 			if((isset($_POST['id'])) and ($_POST['id'] !== "new")) {
@@ -33,10 +33,9 @@ class AdminUser extends Page {
 			else {
 				$id = $_POST['id'];
 			}
-			
 			$dbuser->setUserName($id, $_POST['name']);
 			$dbuser->setUserRights($id, $_POST['rights']);
-			if ($_POST['password'] !== "") $dbuser->setUserPassword($id, $_POST['password']);
+			if (($_POST['password'] !== "") and ($_POST['password'] == $_POST['password-repeat'])) $dbuser->setUserPassword($id, $_POST['password']);
 			
 			// save changes
 			$dbuser->saveXML();
@@ -78,6 +77,7 @@ class AdminUser extends Page {
 			$ret .= "<tr><td id=\"item-name\">Name</td><td><input type=\"text\" name=\"name\" value=\"".$name."\"></td></tr>\n";
 			$ret .= "<tr><td id=\"item-name\">Rights</td><td><input type=\"text\" name=\"rights\" value=\"".$rights."\"></td></tr>\n";
 			$ret .= "<tr><td id=\"item-name\">Name</td><td><input type=\"password\" name=\"password\" value=\"\"></td></tr>\n";
+			$ret .= "<tr><td id=\"item-name\">Repeat password</td><td><input type=\"password\" name=\"password-repeat\" value=\"\"></td></tr>\n";
 			$ret .= "<tr><td id=\"item-name\"></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
 			$ret .= "</table></form>";
 			$this->body = $ret;
@@ -87,25 +87,23 @@ class AdminUser extends Page {
 			
 			// create empty form
 			$this->id = "new";
-			$this->title = "new page";
+			$id = $this->id;
+			$this->title = "new user";
 			$this->author = ""; // ToDo
 			
 			// build form
-			$ret = "<h1>New Page</h1>\n";
-			$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
-			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\">&nbsp;visible\n";
-			$ret .= "<h2>Title</h2>\n";
-			$ret .= "<input type=\"text\" name=\"title\" value=\"\">\n";
-			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
-			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$_GET['type']."\">\n";
-			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";
-			// plugin stuff
-			global $PLUGINS;
-			$ret .= $PLUGINS[$_GET['type']]->getEditorBody("");
-			$ret .= "<input type=\"submit\" value=\"create\">\n";
-			$ret .= "</form>";
+			$ret = "<h1>New User</h1>\n";
+			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\"><table class=\"user\">";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
+			$ret .= "<tr><td id=\"item-name\">Name</td><td><input type=\"text\" name=\"name\" value=\"\"></td></tr>\n";
+			$ret .= "<tr><td id=\"item-name\">Rights</td><td><input type=\"text\" name=\"rights\" value=\"\"></td></tr>\n";
+			$ret .= "<tr><td id=\"item-name\">Password</td><td><input type=\"password\" name=\"password\" value=\"\"></td></tr>\n";
+			$ret .= "<tr><td id=\"item-name\">Repeat password</td><td><input type=\"password\" name=\"password-repeat\" value=\"\"></td></tr>\n";
+			$ret .= "<tr><td id=\"item-name\"></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
+			$ret .= "</table></form>";
 			$this->body = $ret;
-			$this->head = $PLUGINS[$_GET['type']]->getEditorHead("");
+			$this->head = "";
 		}
 		else {
 			// show list of pages
