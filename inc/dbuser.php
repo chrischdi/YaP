@@ -63,30 +63,30 @@ class DbUser {
 	}
 
 	function setNode($id, $string, $part){
-//    	if($this->xml->getElementByID($id) !== null) {
+    	if($this->xml->getElementByID($id) !== null) {
 		    $content = $this->xml->getElementByID($id);
 		    $node = $content->getElementsByTagName($part)->item(0);
 		    $node->nodeValue = $string;
-//        }
-//        else {
-//            echo $this->error;
-//            exit;
-//        }
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
 	}
 
     function setNodeCData($id, $string, $part){
-//    	if($this->xml->getElementByID($id) !== null) {
+    	if($this->xml->getElementByID($id) !== null) {
             $string = $this->xml->createCDATASection($string);
 	        $nodenew = $this->xml->createElement($part);
 	        $nodenew->appendChild($string);
 	        $content = $this->xml->getElementByID($id);
 	        $node = $content->getElementsByTagName($part)->item(0);
 	        $content->replaceChild($nodenew, $node);
-//        }
-//        else {
-//            echo $this->error;
-//            exit;
-//        }
+        }
+        else {
+            echo $this->error;
+            exit;
+        }
     }
 
 	function setAttribute($id, $string, $part){
