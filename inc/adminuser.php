@@ -16,7 +16,16 @@ class AdminUser extends Page {
 		$dbuser		= &new DbUser();
 		
 		// handle _POST
-		if ($_POST and ($_POST['edit'] == "user")) {
+		if ($_POST and ($_POST['edit'] == "user") and ($_POST['delete'] == "true")) {
+			if((isset($_POST['id'])) and ($_POST['id'] !== "new")) {
+				$id = $_POST['id'];
+			}
+			$dbuser->deleteContent($id);
+						
+			// save changes
+			$dbuser->saveXML();
+		}
+		elseif ($_POST and ($_POST['edit'] == "user")) {
 			if ($_POST['id'] == "new") {
 				// get new id that's not in db already
 				$id = $dbuser->createUser();
@@ -34,7 +43,25 @@ class AdminUser extends Page {
 		}
 		
 		// get page-id and check if page exists
-		if (isset($_GET['id']) and ($_GET['id'] !== "new")) {
+		if (isset($_GET['id']) and ($_GET['id'] !== "new" and ($_GET['action'] == "delete"))) {
+			
+			// get page contents
+			$this->id = $_GET['id'];
+			$id = $this->id;
+			$this->title = $dbuser->getUserName($id);
+
+			// delete question
+			$ret = "<h1>Delete User</h1>\n";
+			$ret .= "<p>Do you realy want to delete the user &quot;".$this->title."&quot;?</p>\n";
+			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
+			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
+			$ret .= "<input type=\"hidden\" name=\"delete\" value=\"true\">";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
+			$ret .= "<input type=\"submit\" value=\"Ja\">\n";
+			$ret .= "</form>";
+			$this->body = $ret;
+		}
+		elseif (isset($_GET['id']) and ($_GET['id'] !== "new")) {
 			
 			// get page contents
 			$this->id = $_GET['id'];
@@ -89,7 +116,7 @@ class AdminUser extends Page {
 			$this->head = "";
 			
 			$users = $dbuser->getUsers();
-			$ret = "<h1>List Of Users</h1>\n<table class=\"users\">";
+			$ret = "<h2>List Of Users</h2>\n<table class=\"users\">";
 			foreach($users as $user) {
 				$ret .= "<tr>";
 				// Title
@@ -97,7 +124,7 @@ class AdminUser extends Page {
 				// edit-button
 				$ret .= "<td id=\"edit-button\"><a href=\"?edit=user&id=".$user[0]."\">EDIT</a></td>";
 				// delete-button
-				$ret .= "<td id=\"delete-button\">DELETE</td>";
+				$ret .= "<td id=\"delete-button\"><a href=\"?edit=user&id=".$user[0]."&action=delete\">DELETE</a></td>";
 				$ret .= "</tr>\n";
 			}
 			$ret .= "</tr></table>\n";

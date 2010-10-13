@@ -97,6 +97,9 @@
 	.users #item-name {
 		width:130px;
 	}
+	.users #edit-button {
+		width:50px;
+	}
 	.users td {
 		border-top:1px solid black;
 		border-bottom:1px solid black;
