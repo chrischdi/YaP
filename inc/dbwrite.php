@@ -58,7 +58,7 @@ class DbWrite extends Db {
     }
 
 	function setNode($id, $string, $part){
-    	if($this->xml->getElementByID("asd") !== null) {
+    	if($this->xml->getElementByID($id) !== null) {
         	$content = $this->xml->getElementByID($id);
 		    $node = $content->getElementsByTagName($part)->item(0);
 		    $node->nodeValue = $string;

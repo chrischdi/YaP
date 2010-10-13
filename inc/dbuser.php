@@ -53,11 +53,12 @@ class DbUser {
 	}
 
 	function getNode($id, $part){
-	    $node = $this->xml->getElementByID($id);
-		if(isset($node)){
+       	if($this->xml->getElementByID($id) !== null) {
+       	    $node = $this->xml->getElementByID($id);
 			return $node->getElementsByTagName($part)->item(0)->nodeValue;
 		}else{
             echo $this->error;
+            exit;
         }
 	}
 
