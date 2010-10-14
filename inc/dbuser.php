@@ -145,6 +145,16 @@ class DbUser {
 		}
 		return $users;
 	}
+	
+	function validateUser($username, $password) {
+		$nodes = $this->xml->getElementsByTagName('user');
+		foreach($nodes as $user) {
+			if ($user->getElementsByTagName('name')->item(0)->nodeValue == $username) {
+				if ($user->getElementsByTagName('password')->item(0)->nodeValue == md5($password)) return True;
+				else return False;
+			}
+		}
+	}
 }
 
 ?>

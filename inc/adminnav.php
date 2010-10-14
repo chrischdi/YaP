@@ -9,15 +9,15 @@ class AdminNav extends Nav{
 	var $itemcounter;
 	
 	function AdminNav() {
-		// old (in class Nav):
-		// $this->sitemap = $db->getSitemap();
 		
 		$this->sitemap = array();
 		// navigation-elements
-		$this->sitemap[] = array("general", "general");
-		$this->sitemap[] = array("page", "pages");
-		$this->sitemap[] = array("user", "users");
-		
+		if (isset($_SESSION['username'])) {
+			$this->sitemap[] = array("general", "general");
+			$this->sitemap[] = array("page", "pages");
+			$this->sitemap[] = array("user", "users");
+		}
+		$this->sitemap[] = array("logout", "logout");
 		$this->itemcounter = 0;
 	}
 	

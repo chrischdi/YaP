@@ -1,3 +1,4 @@
+<?php include("inc/adminpanel.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 transitional//DE" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
 ** This is YaP - Yet another Pager
@@ -5,8 +6,6 @@
 ** It uses xml-files to save it's content.
 ** We are aviable on http://github.com/chrischdi/YaP
 -->
-
-<?php include("inc/adminpanel.php"); ?>
 
 <html>
 <head>
