@@ -25,7 +25,9 @@ class HtmlPlugin {
 	}
 	
 	function getEditorHead($main) {
-		return;
+		global $PLUGINS;
+		$ret = $PLUGINS['tinymce']->getEditorHead();
+		return $ret;
 	}
 }
 
