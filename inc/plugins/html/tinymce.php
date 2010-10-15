@@ -2,14 +2,14 @@
 
 class TinyMCEPlugin {
     
-    var $tinymcePath = 'inc/plugins/jscripts/tiny_mce/tiny_mce.js';
+    var $tinymcePath = 'jscripts/tiny_mce/';
 
 	function getBody() {
 		return;
 	}
 	
 	function isAviable() {
-	    if (file_exists($this->tinymcePath)) return true;
+	    if (file_exists($this->tinymcePath.'tiny_mce.js')) return true;
 	    else return false;
 	}
 	
@@ -27,16 +27,19 @@ class TinyMCEPlugin {
 	
 	function getEditorHead() {
 	    if($this->isAviable() == true) {
-	        $ret =  "<script type=\"text/javascript\" src=\"".$this->tinymcePath."\"></script>\n";
+	        global $PLUGINS;
+	        $ret =  "<script type=\"text/javascript\" src=\"".$this->tinymcePath."tiny_mce.js\"></script>\n";
 	        $ret .= "<script type=\"text/javascript\">\n";
 	        $ret .= "tinyMCE.init({\n";
 	        $ret .= "	theme : \"advanced\",\n";
 	        $ret .= "	mode : \"textareas\",\n";
 	        $ret .= "   plugins : \"fullpage\,template,advimage,\",\n";
-	        $ret .= "   theme_advanced_buttons3_add : \"fullpage\",\n";
+	        $ret .= $PLUGINS['tinymcebrowser']->getTMCEinitaddition();
+	        $ret .= "   theme_advanced_buttons3_add : \"fullpage\"\n";
 	        $ret .= "});\n";
+	        $ret .= $PLUGINS['tinymcebrowser']->getJSaddition();
 	        $ret .= "</script>\n";
-	        echo $ret;
+	        return $ret;
         }
         else return;
 	}

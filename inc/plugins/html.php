@@ -1,11 +1,13 @@
 <?php
 
+foreach(glob("inc/plugins/html/*.php") as $filename) include($filename);
+
 // "plugin" for plain html-formatted text
 // returns main as it is as page-body
 // returns empty header
 
 class HtmlPlugin {
-	
+
 	function getBody($main) {
 		return $main;
 	}
