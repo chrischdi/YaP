@@ -12,7 +12,7 @@ class AdminLogin extends Page {
 	var $head;
 	
 	function AdminLogin($db) {
-		
+		session_unset();
 		$this->title = "Login";
 		$this->id = "";
 		$this->author = "";

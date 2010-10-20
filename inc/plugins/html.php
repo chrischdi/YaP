@@ -30,7 +30,7 @@ class HtmlPlugin {
 		if($this->browserAviable() == true) {
 			$ret .= "function myCustomFileBrowser(field_name, url, type, win) {\n";
 			$ret .= "   FileWindow=win;\n";
-			$ret .= "   window.open('../browser/browser.php?type=' + type,'Assets','width=600,height=600');\n";
+			$ret .= "   window.open('../browser/browser.php?type=' + type,'Assets','scrollbars=yes,width=600,height=600');\n";
 			$ret .= "}\n";
 			$ret .= "function CallBackReturn(field_name, url){\n";
 			$ret .= "  FileWindow.document.forms[0].elements[field_name].value =url ;\n";
@@ -78,6 +78,8 @@ class HtmlPlugin {
 			$ret .= "	mode : \"textareas\",\n";
 			$ret .= "   plugins : \"fullpage\,template,advimage,\",\n";
 			$ret .= $this->getTMCEinitaddition();
+			$ret .= "   theme_advanced_statusbar_location : \"bottom\",\n";
+			$ret .= "   theme_advanced_resizing : true,\n";
 			$ret .= "   theme_advanced_buttons3_add : \"fullpage\"\n";
 			$ret .= "});\n";
 			$ret .= $this->getJSaddition();
