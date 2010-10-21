@@ -27,6 +27,7 @@ class AdminPage extends Page {
 			if ($_POST['id'] == "new") {
 				// get new id that's not in db already
 				$id = $db->createContent();
+    			$db->setContentAuthor($id, $_SESSION['username']);
 			}
 			else {
 				$id = $_POST['id'];
@@ -72,10 +73,10 @@ class AdminPage extends Page {
 			$this->id = $_GET['id'];
 			$id = $this->id;
 			$this->title = $db->getPageTitle($id);
-			$this->author = $db->getPageAuthor($id);
 			$main = $db->getMain($id);
 			$type = $db->getType($id);
-			
+			$this->author = $db->getPageAuthor($id);
+
 			// build form
 			$ret = "<h1>Edit Page</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
@@ -83,9 +84,11 @@ class AdminPage extends Page {
 			else $checked = "";
 			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\"".$checked.">&nbsp;visible\n";
 			$ret .= "<h2>Title</h2>";
-			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
-			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$type."\">\n";
 			$ret .= "<input type=\"text\" name=\"title\" value=\"".$this->title."\">";
+			$ret .= "<h2>Author</h2>\n";
+			$ret .= "<p>".$this->author."</p>\n";
+			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$type."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			// plugin stuff
 			global $PLUGINS;
@@ -100,7 +103,6 @@ class AdminPage extends Page {
 			// create empty form
 			$this->id = "new";
 			$this->title = "new page";
-			$this->author = ""; // ToDo
 			
 			// build form
 			$ret = "<h1>New Page</h1>\n";

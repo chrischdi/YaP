@@ -14,6 +14,7 @@ include("inc/adminlogin.php");
 include("inc/admingeneral.php");
 include("inc/adminpage.php");
 include("inc/adminuser.php");
+include("inc/adminbrowser.php");
 
 
 class AdminPanel {
@@ -78,6 +79,9 @@ class AdminPanel {
 				break;
 			case "general":
 				$this->page = &new AdminGeneral($db);
+				break;
+			case "browser":
+				$this->page = &new AdminBrowser($db);
 				break;
 			default:
 				$this->page = &new AdminLogin($db);

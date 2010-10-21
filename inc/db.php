@@ -82,7 +82,7 @@ class Db {
 		if(isset($content)) {
 			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
 			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-			return $PLUGINS[$type]->getBody($main);
+			return $PLUGINS[$type]->getBody($main, $id);
 		}
 		else return "Fehler in getPageBody()";
 	}

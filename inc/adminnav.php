@@ -16,6 +16,7 @@ class AdminNav extends Nav{
 			$this->sitemap[] = array("general", "general");
 			$this->sitemap[] = array("page", "pages");
 			$this->sitemap[] = array("user", "users");
+			$this->sitemap[] = array("browser", "browser");
 		}
 		$this->sitemap[] = array("logout", "logout");
 		$this->itemcounter = 0;

@@ -106,7 +106,7 @@ class DbWrite extends Db {
 	}
 
     function setContentMain($id, $string){
-        $this->setNodeCData($id, $string, 'main');
+        $this->setNodeCData($id, stripslashes($string), 'main');
 	}
 	
     // setter for website information

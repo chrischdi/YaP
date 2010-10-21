@@ -76,7 +76,7 @@ class HtmlPlugin {
 			$ret .= "tinyMCE.init({\n";
 			$ret .= "	theme : \"advanced\",\n";
 			$ret .= "	mode : \"textareas\",\n";
-			$ret .= "   plugins : \"fullpage\,template,advimage,\",\n";
+			$ret .= "   plugins : \"template,advimage,\",\n";
 			$ret .= $this->getTMCEinitaddition();
 			$ret .= "   theme_advanced_statusbar_location : \"bottom\",\n";
 			$ret .= "   theme_advanced_resizing : true,\n";
