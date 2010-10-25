@@ -16,12 +16,14 @@ class AdminLogin extends Page {
 		$this->title = "Login";
 		$this->id = "";
 		$this->author = "";
-		$ret = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\"><table>\n";
+		$ret = "<span id=\"AdminLogin\">\n";
+		$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\"><table>\n";
 		$ret .= "<tr><td>username</td><td><input type=\"text\" name=\"username\"></td></tr>\n";
 		$ret .= "<tr><td>password</td><td><input type=\"password\" name=\"password\"></td></tr>\n";
 		$ret .= "<tr><td></td><td><input type=\"submit\" value=\"login\"></td></tr>\n";
 		$ret .= "<input type=\"hidden\" name=\"action\" value=\"login\">\n";
 		$ret .= "</table></form>";
+		$ret .= "</span>\n";
 		$this->body = $ret;
 		$this->head = "";
 		

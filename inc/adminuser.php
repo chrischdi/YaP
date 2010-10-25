@@ -49,7 +49,8 @@ class AdminUser extends Page {
 			$id = $this->id;
 			$this->title = $dbuser->getUserName($id);
 			// delete question
-			$ret = "<h1>Delete User</h1>\n";
+		    $ret = "<span id=\"AdminUser\">\n";
+	        $ret .= "<h1>Delete User</h1>\n";
 			$ret .= "<p>Do you realy want to delete the user &quot;".htmlentities($this->title)."&quot;?</p>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
@@ -57,6 +58,7 @@ class AdminUser extends Page {
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			$ret .= "<input type=\"submit\" value=\"Ja\">\n";
 			$ret .= "</form>";
+		    $ret .= "</span>\n";
 			$this->body = $ret;
 		}
 		elseif (isset($_GET['id']) and ($_GET['id'] !== "new")) {
@@ -70,7 +72,8 @@ class AdminUser extends Page {
 			$rights = $dbuser->getUserRights($id);
 			
 			// build form
-			$ret = "<h1>Edit User</h1>\n";
+		    $ret = "<span id=\"AdminUser\">\n";
+	        $ret .= "<h1>Edit User</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\"><table class=\"user\">";
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
@@ -80,6 +83,7 @@ class AdminUser extends Page {
 			$ret .= "<tr><td id=\"item-name\">Repeat password</td><td><input type=\"password\" name=\"password-repeat\" value=\"\"></td></tr>\n";
 			$ret .= "<tr><td id=\"item-name\"></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
 			$ret .= "</table></form>";
+		    $ret .= "</span>\n";
 			$this->body = $ret;
 			$this->head = "";
 		}
@@ -92,7 +96,8 @@ class AdminUser extends Page {
 			$this->author = ""; // ToDo
 			
 			// build form
-			$ret = "<h1>New User</h1>\n";
+		    $ret = "<span id=\"AdminUser\">\n";
+	        $ret .= "<h1>New User</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\"><table class=\"user\">";
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"user\">\n";
@@ -102,6 +107,7 @@ class AdminUser extends Page {
 			$ret .= "<tr><td id=\"item-name\">Repeat password</td><td><input type=\"password\" name=\"password-repeat\" value=\"\"></td></tr>\n";
 			$ret .= "<tr><td id=\"item-name\"></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
 			$ret .= "</table></form>";
+		    $ret .= "</span>\n";
 			$this->body = $ret;
 			$this->head = "";
 		}
@@ -113,7 +119,8 @@ class AdminUser extends Page {
 			$this->head = "";
 			
 			$users = $dbuser->getUsers();
-			$ret = "<h2>List Of Users</h2>\n<table class=\"users\">";
+		    $ret = "<span id=\"AdminUser\">\n";
+	        $ret .= "<h2>List Of Users</h2>\n<table class=\"users\">";
 			foreach($users as $user) {
 				$ret .= "<tr>";
 				// Title
@@ -133,6 +140,7 @@ class AdminUser extends Page {
 			$ret .= "<h2>New User</h2>\n";
 			$ret .= "<input type=\"submit\" value=\"create new user\">\n";
 			$ret .= "</form>";
+		    $ret .= "</span>\n";
 			
 			$this->body = $ret;
 			$this->head = "";

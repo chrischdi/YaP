@@ -26,9 +26,11 @@ class AdminNav extends Nav{
 	// function-override for links
 	
 	function menu() {	// ToDo: import template for navigation, before, in and/or after link
+    	echo "<span id=\"AdminNav\">\n";
 		foreach($this->sitemap as $page) {
 			echo "<a href=\"?edit=".$page[0]."\">".htmlentities($page[1])."</a>\n";
 		}
+    	echo "</span>\n";
 	}
 	
 	function itemLink() {

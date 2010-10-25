@@ -1,5 +1,7 @@
 <?php include("inc/adminpanel.php"); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 transitional//DE" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 transitional//DE" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 <!-- 
 ** This is YaP - Yet another Pager
 ** Yet another Pager is a content management system without a (common) database.
@@ -7,135 +9,175 @@
 ** We are aviable on http://github.com/chrischdi/YaP
 -->
 
-<html>
-<head>
-<style type="text/css">
-	body {
-		font-family:sans;
-	}
-	div.title {
-		position:relative;
-		text-align:center;
-	}
-	div.navi {
-		position:relative;
-		margin:0px;
-		margin-bottom:10px;
-		padding:2px 0px 1px 0px;
-		border-left:2px solid black;
-		border-bottom:2px solid black;
-		background-color:#aaaaaa;
-	}
-	div.body {
-		position:relative;
-		padding:5px;
-		border:1px dotted black;
-	}
-	
-	div.navi ul {
-		padding:2px 0px 1px 0px;
-		margin:0px;
-	}
-	
-	div.navi li {
-		list-style:none;
-		display:inline;
-		/* margin-right:10px; */
-	}
 
-	div.navi a {
-		background-color:#aaaaaa;
-		text-decoration:none;
-		font-size:18px;
-		color:#333333;
-		letter-spacing:1px;
-		border-right:2px solid black;
-		padding:2px 4px 1px 4px;
-		margin:0px -5px 0px 0px;
-	}
-	div.navi a:hover {
-		background-color:#dddddd;
-		/* border:1px solid #222222; */
-		color:#222222;
-	}
-	input[type=text] {
-		width:350px;
-	}
-	input[type=password] {
-		width:350px;
-	}
-	textarea {
-		width:350px;
-		height:240px;
-	}
-	table.pages {
-		border-collapse:collapse;
-	}
-	.pages #item-name {
-		width:130px;
-	}
-	.pages #edit-button {
-		width:50px;
-	}
-	.pages #delete-button {
-		width:50px;
-	}
-	.pages td {
-		border-top:1px solid black;
-		border-bottom:1px solid black;
-	}
-	table.general {
-		border-collapse:collapse;
-	}
-	.general #item-name {
-		width:130px;
-	}
-	table.users {
-		border-collapse:collapse;
-	}
-	.users #item-name {
-		width:130px;
-	}
-	.users #edit-button {
-		width:50px;
-	}
-	.users td {
-		border-top:1px solid black;
-		border-bottom:1px solid black;
-	}
-	table.user {
-		border-collapse:collapse;
-	}
-	.user #item-name {
-		width:130px;
-	}
+<style type="text/css">
+* {
+    border: 0px;
+}
+
+#header, #headbar {
+    height: 95px;
+}
+
+#wrapper {
+    margin-top: -95px;
+    margin-right: auto;
+    margin-bottom: 0;
+	margin-left: auto;
+	width: 960px;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif,verdana;
+}
+
+#headbar {
+	background-color:#3B5998;
+	width:100%
+	left: 0;
+}
+
+#header {
+	text-align: center;
+	width: 960px;
+	color: #ffffff;
+}
+
+#header div {
+	padding: 5px;
+}
+
+#header h1 a:link, #header h1 a:visited, #header h1 :hover, #header h1 a:active {
+        margin: 0 2px;
+	    color: #ffffff;
+	    text-decoration:none;
+}
+
+#nav {
+    margin-top: -23px;
+}
+
+#main {
+	margin: 10px 0;
+	width: 960px;
+	border-bottom: 2px groove #3B5998;
+}
+
+#content {
+	width: 960px;
+}
+
+p {
+	margin: 4px 0;
+}
+
+#footer {
+	color: #afafaf;
+	width: 960px;
+	height: 40px;
+	padding: 10px;
+	text-align: center;
+}input
+
+#footer span {
+	margin: 0 10px 0 10px;
+}
+
+#nav a:link, #nav a:visited, #nav a:hover, #nav a:active {
+    margin: 0 2px;
+	color: #eeeeee;
+	text-decoration:none;
+}
+#nav a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+/*AdminPanel zusatz */
+
+input {
+    border:1px solid #aaaaaa;
+}
+
+#AdminLogin * input[type=text], #AdminLogin * input[type=password] {
+	width:350px;
+}
+
+#AdminLogin form table{
+    margin: 0 auto;
+}
+
+textarea {
+	width:350px;
+	height:240px;
+}
+
+table.pages {
+    border-collapse:collapse;
+}
+.pages #item-name {
+    width:130px;
+}
+.pages #edit-button {
+    width:50px;
+}
+.pages #delete-button {
+    width:50px;
+}
+.pages td {
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+table.general {
+    border-collapse:collapse;
+}
+.general #item-name {
+    width:130px;
+}
+table.users {
+    border-collapse:collapse;
+}
+.users #item-name {
+    width:130px;
+}
+.users #edit-button {
+    width:50px;
+}
+.users td {
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+table.user {
+    border-collapse:collapse;
+}
+.user #item-name {
+    width:130px;
+}
+
 </style>
 <title><?php $ap->website->title(); ?> AdminPanel - <?php $ap->page->title(); ?></title>
 <?php $ap->page->head(); ?>
-</head>
-<body>
-<!-- TITLE -->
-<div class="title">
-<h1><a href="<?php $ap->website->domain(); ?>"><?php $ap->website->title(); ?></a></h1>
-</div>
-
-<div class="navi">
-
-<?php
-
-//do {
-//	echo "<li>";
-//	$cms->nav->itemLink();
-//	echo "</li>";
-//} while ($cms->nav->getNext());
-
-$ap->nav->menu();
-
-?>
-
-</div>
-<div class="body">
+</head><body>
+<div id="headbar"></div>
+<div id="wrapper">
+	<div id="header">
+	    <div>
+	        <h1><a href="<?php $ap->website->domain(); ?>"><?php $ap->website->title(); ?></h1>
+	        <div id="nav">
+<?php $ap->nav->menu(); ?>
+	        </div>
+	    </div>
+	</div>
+	<div id="main">
+		<div id="content">
 <?php $ap->page->body(); ?>
+            <div style="clear: both;">&nbsp;</div>
+		<br>&nbsp;
+		</div>
+	</div>
+	<div id="footer">&copy; by 9er &amp; Chrischdi</div>
 </div>
-</body>
-</html>
+</body></html>

@@ -57,14 +57,16 @@ class AdminPage extends Page {
 			$this->title = $db->getPageTitle($id);
 
 			// delete question
-			$ret = "<h1>Delete Page</h1>\n";
+		    $ret = "<span id=\"AdminPage\"\n>";
+			$ret .= "<h1>Delete Page</h1>\n";
 			$ret .= "<p>Do you realy want to delete the &quot;".htmlentities($this->title)."&quot; page?</p>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"delete\" value=\"true\">";
 			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$id."\">\n";
 			$ret .= "<input type=\"submit\" value=\"Ja\">\n";
-			$ret .= "</form>";
+			$ret .= "</form>\n";
+    		$ret .= "</span>\n";
 			$this->body = $ret;
 		}
 		elseif (isset($_GET['id']) and ($_GET['id'] !== "new")) {
@@ -78,7 +80,8 @@ class AdminPage extends Page {
 			$this->author = $db->getPageAuthor($id);
 
 			// build form
-			$ret = "<h1>Edit Page</h1>\n";
+		    $ret = "<span id=\"AdminPage\"\n>";
+			$ret .= "<h1>Edit Page</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			if ($db->isPage($id)) $checked = " checked=\"checked\""; // only true, if page is visible
 			else $checked = "";
@@ -94,7 +97,8 @@ class AdminPage extends Page {
 			global $PLUGINS;
 			$ret .= $PLUGINS[$type]->getEditorBody($main);
 			$ret .= "<input type=\"submit\" value=\"save\">\n";
-			$ret .= "</form>";
+			$ret .= "</form>\n";
+    		$ret .= "</span>\n";
 			$this->body = $ret;
 			$this->head = $PLUGINS[$type]->getEditorHead($main);
 		}
@@ -105,7 +109,8 @@ class AdminPage extends Page {
 			$this->title = "new page";
 			
 			// build form
-			$ret = "<h1>New Page</h1>\n";
+		    $ret = "<span id=\"AdminPage\"\n>";
+			$ret .= "<h1>New Page</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\">&nbsp;visible\n";
 			$ret .= "<h2>Title</h2>\n";
@@ -117,7 +122,8 @@ class AdminPage extends Page {
 			global $PLUGINS;
 			$ret .= $PLUGINS[$_GET['type']]->getEditorBody("");
 			$ret .= "<input type=\"submit\" value=\"create\">\n";
-			$ret .= "</form>";
+			$ret .= "</form>\n";
+    		$ret .= "</span>\n";
 			$this->body = $ret;
 			$this->head = $PLUGINS[$_GET['type']]->getEditorHead("");
 		}
@@ -129,7 +135,8 @@ class AdminPage extends Page {
 			$this->head = "";
 			
 			$sitemap = $db->getSitemap();
-			$ret = "<h2>List Of Pages</h2>\n<table class=\"pages\">";
+		    $ret = "<span id=\"AdminPage\"\n>";
+			$ret .= "<h2>List Of Pages</h2>\n<table class=\"pages\">";
 			foreach($sitemap as $page) {
 				$ret .= "<tr>";
 				// Title
@@ -153,7 +160,8 @@ class AdminPage extends Page {
 			}
 			$ret .= "</select>\n";
 			$ret .= "<input type=\"submit\" value=\"create new page\">\n";
-			$ret .= "</form>";
+			$ret .= "</form>\n";
+    		$ret .= "</span>\n";
 			
 			$this->body = $ret;
 			$this->head = "";

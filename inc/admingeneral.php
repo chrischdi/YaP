@@ -27,7 +27,8 @@ class AdminGeneral extends Page {
 		}
 		
 		// build page
-		$ret = "<h1>General Setup</h1>";
+        $ret = "<span id=\"AdminGeneral\"\n>";
+		$ret .= "<h1>General Setup</h1>\n";
 		if ($saved) {
 			// ToDo: print some "page saved successfully"-stuff
 			$ret .= "";
@@ -41,8 +42,8 @@ class AdminGeneral extends Page {
 		$ret .= "<tr><td id=\"item-name\">Domain</td><td><input type=\"text\" name=\"domain\" value=\"".$db->getWebsiteDomain()."\"></td></tr>\n";
 		$ret .= "<tr><td id=\"item-name\">Webmaster</td><td><input type=\"text\" name=\"webmaster\" value=\"".$db->getWebsiteWebmaster()."\"></td></tr>\n";
 		$ret .= "<tr><td></td><td><input type=\"submit\" value=\"save\"></td></tr>\n";
-		$ret .= "</table></form>";
-		
+		$ret .= "</table></form>\n";
+		$ret .= "</span>\n";
 		$this->body = $ret;
 		$this->head = "";
 	}

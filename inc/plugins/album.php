@@ -41,7 +41,9 @@ class AlbumPlugin {
                     $ret .= "float:left;";
                     $ret .= "margin:5px;";
                     $ret .= "\">\n";
+                    $ret .= "<a href=\"#\" onclick=\"javascript:foo=window.open('".$main."/".$file."','Album','') \">\n";
                     $ret .= "<img ".$style."src=\"".$main."/".$file."\"></img>\n";
+                    $ret .= "</a>\n";
                     $ret .= "</div>\n";
                 }
             }
