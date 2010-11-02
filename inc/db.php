@@ -1,5 +1,7 @@
 <?php
 
+require_once('inc/db.php');
+
 class Db {
 	
 	var $xml;

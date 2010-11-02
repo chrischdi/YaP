@@ -13,16 +13,24 @@ class AdminBrowser extends Page {
     var $err;
     var $ckeckUpload;
 
-	function AdminBrowser($db) {
-        $this->dir = $_GET['dir'];
-	    $this->path .= $this->dir;
-        if($_GET['do'] == "upload") $this->doUpload();
+    function generateBody () {
         $this->body = "<span id=\"AdminBrowser\">\n";
         $this->body .= $this->getBodyBrowser();
         $this->body .= $this->getBodyUpload();
         $this->body .= "</span>\n";
+    }
+
+    function generateHead () {
         $this->head = $this->getHeadBrowser();
         $this->head .= $this->getHeadUpload();
+    }
+
+	function AdminBrowser($db) {
+        $this->dir = $_GET['dir'];
+	    $this->path .= $this->dir;
+        if($_GET['do'] == "upload") $this->doUpload();
+        $this->generateHead();
+        $this->generateBody();
 	}
 
     function getBodyUpload() {
@@ -78,22 +86,39 @@ class AdminBrowser extends Page {
         $dirs = null;
         $files = null;
         $ret = "<h1>Browser</h2>\n";
-        $ret .= "<a href=\"".$_SERVER['PHP_SELF']."?edit=browser&dir=".dirname($this->dir)."\">BACK</a>\n";
+        $ret .= "<a mkdir($path, 0775);href=\"".$_SERVER['PHP_SELF']."?edit=browser&dir=".dirname($this->dir)."\">BACK</a>\n";
         $ret .= "<table class=\"general\">\n";
         $ret .= "    <tr><th>Name</th><th class=\"right\">Size</th><th class=\"right\">Actions</th></tr>\n";
-        while ($file = readdir($handle)) {
-            if(is_dir($this->path."/".$file) and $file !== "." and $file !== ".."){
-                $dirs .= "    ";
+        $dirs .= $this->getDirs($handle);
+        $files .= $this->getFiles($handle);
+        $ret .= $dirs;
+        $ret .= $files;
+        $ret .= "</table>\n";
+        return $ret;
+    }
+    
+    function getDirs ($handle) {
+        $dirs = null;
+        while ($dir = readdir($handle)) {
+            if(is_dir($this->path."/".$dir) and $dir !== "." and $dir !== ".."){
                 $dirs .= "<tr class=\"dir\">";
                 $dirs .= "<td>";
-                $dirs .= "<a href=\"".$_SERVER['PHP_SELF']."?edit=browser&dir=".$this->dir."/".$file."\">";
-                $dirs .= $file;
+                $dirs .= "<a href=\"".$_SERVER['PHP_SELF']."?edit=browser&dir=".$this->dir."/".$dir."\">";
+                $dirs .= $dir;
                 $dirs .= "</a>";
                 $dirs .= "<td class=\"right\"></td>";
                 $dirs .= "<td class=\"right\">REN CUT DEL</td>";
                 $dirs .= "</tr>\n";
-            }elseif (!is_dir($this->path."/".$file)) {
-                $files .= "    ";
+                return $dirs;
+
+            }
+        }
+    }
+    
+    function getFiles ($handle) {
+        $files = null;
+        while ($file = readdir($handle)) {
+            if (!is_dir($this->path."/".$file)) {
                 $files .= "<tr>";
                 $files .= "<td>";
                 $files .= $file;
@@ -107,10 +132,7 @@ class AdminBrowser extends Page {
                 $files .= "</tr>\n";
             }
         }
-        $ret .= $dirs;
-        $ret .= $files;
-        $ret .= "</table>\n";
-        return $ret;
+        return $files;
     }
 
 	function format_bytes($bytes) {
@@ -244,4 +266,39 @@ class AdminBrowser extends Page {
         }
     }
 }
+
+class fileAccess {
+
+    var $dirPath;
+
+    function fileAccess ($dirPath) {
+        $this->dirPath = $dirPath;
+    }
+
+    function checkDir ($path) {
+        if(is_dir($path) && $this->validatePath()) return true;
+        else return false;
+    }
+
+    function validatePath ($path) {
+        if (substr_count("/".$path."/.", "/../") == 0) return true;
+        else return false;
+    }
+
+    function makeDir ($path) {
+        if ($this->checkDir($path)) {
+            mkdir($path, 0775);
+            return true;
+        }
+        else return false;
+    }
+
+
+
+
+
+
+
+}
+
 ?>

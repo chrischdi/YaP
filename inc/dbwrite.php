@@ -1,7 +1,7 @@
 <?
 
 // Include Website
-include("inc/db.php");
+require_once("inc/db.php");
 
 class DbWrite extends Db {
     

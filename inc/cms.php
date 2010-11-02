@@ -1,18 +1,18 @@
 <?
 // Include plugins (all files in inc/plugins/)
-foreach(glob("inc/plugins/*.php") as $filename) include($filename);
+foreach(glob("inc/plugins/*.php") as $filename) require_once($filename);
 
 // Include Db
-include("inc/db.php");
+require_once("inc/db.php");
 
 // Include Nav
-include("inc/nav.php");
+require_once("inc/nav.php");
 
 // Include Page
-include("inc/page.php");
+require_once("inc/page.php");
 
 // Include Website
-include("inc/website.php");
+require_once("inc/website.php");
 
 class Cms {
 	

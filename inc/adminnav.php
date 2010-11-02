@@ -1,6 +1,6 @@
 <?php
 
-include("inc/nav.php");
+require_once("inc/nav.php");
 
 class AdminNav extends Nav{
 	

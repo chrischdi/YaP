@@ -1,6 +1,6 @@
 <?
 
-include_once("inc/page.php");
+require_once("inc/page.php");
 
 // ToDo: class for site elements (information about current page
 class AdminPage extends Page {

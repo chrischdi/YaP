@@ -2,19 +2,19 @@
 session_start();
 
 // Include plugins (all files in inc/plugins/)
-foreach(glob("inc/plugins/*.php") as $filename) include($filename);
+foreach(glob("inc/plugins/*.php") as $filename) require_once($filename);
 
 // include Db
-include("inc/dbwrite.php");
-include("inc/dbuser.php");
+require_once("inc/dbwrite.php");
+require_once("inc/dbuser.php");
 
-include("inc/adminnav.php");
-include("inc/website.php");
-include("inc/adminlogin.php");
-include("inc/admingeneral.php");
-include("inc/adminpage.php");
-include("inc/adminuser.php");
-include("inc/adminbrowser.php");
+require_once("inc/adminnav.php");
+require_once("inc/website.php");
+require_once("inc/adminlogin.php");
+require_once("inc/admingeneral.php");
+require_once("inc/adminpage.php");
+require_once("inc/adminuser.php");
+require_once("inc/adminbrowser.php");
 
 
 class AdminPanel {

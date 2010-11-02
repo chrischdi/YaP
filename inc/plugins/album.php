@@ -4,7 +4,7 @@
 
 class AlbumPlugin {
 
-    var $maxLength = "250"; //in pixels
+    var $maxLength = "225"; //in pixels
 
     function getLongerSide($width, $height) {
         if($width > $height) return "w";
