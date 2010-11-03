@@ -109,7 +109,9 @@ class AdminPage extends Page {
 			$this->title = "new page";
 			
 			// build form
-		    $ret = "<span id=\"AdminPage\"\n>";
+		    
+			$ret = "<span id=\"AdminPage\"\n>";
+			/*
 			$ret .= "<h1>New Page</h1>\n";
 			$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">";
 			$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\">&nbsp;visible\n";
@@ -117,12 +119,12 @@ class AdminPage extends Page {
 			$ret .= "<input type=\"text\" name=\"title\" value=\"\">\n";
 			$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
 			$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$_GET['type']."\">\n";
-			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";
+			$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id."\">\n";*/
 			// plugin stuff
 			global $PLUGINS;
-			$ret .= $PLUGINS[$_GET['type']]->getEditorBody("");
-			$ret .= "<input type=\"submit\" value=\"create\">\n";
-			$ret .= "</form>\n";
+			$ret .= $PLUGINS[$_GET['type']]->getEditorBody("", $this->id, $this->title);
+			/*$ret .= "<input type=\"submit\" value=\"create\">\n";
+			$ret .= "</form>\n";*/
     		$ret .= "</span>\n";
 			$this->body = $ret;
 			$this->head = $PLUGINS[$_GET['type']]->getEditorHead("");

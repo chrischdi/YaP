@@ -5,7 +5,7 @@
 // returns main as it is as page-body
 // returns empty header
 
-class HtmlPlugin {
+class HtmlPlugin extends Plugin{
 	
 	var $tinymcePath = 'jscripts/tiny_mce/';
 	var $browserPath = 'jscripts/tiny_mce/plugins/browser/browser.php';
@@ -62,12 +62,15 @@ class HtmlPlugin {
 		// schoudl be html-formatted already
 		return $post['html-content'];
 	}
-	
-	function getEditorBody($main) {
-		// ToDo: return an wysiwyg-editor (as html)
-		return "<h2>Page Content</h2><textarea name=\"html-content\">".$main."</textarea><br>\n";
+
+	function getEditorBody($main, $id, $title) {
+		$ret;
+		$ret .= $this->getStandardFormBeginning();
+		$ret .= "<h2>Page Content</h2><textarea name=\"html-content\">".$main."</textarea><br>\n";
+		$ret .= $this->getStandardFormEnd();
+		return $ret;
 	}
-	
+		
 	function getEditorHead($main) {
 		$ret = "";
 		if($this->tinymceAviable() == true) {

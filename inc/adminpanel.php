@@ -2,6 +2,7 @@
 session_start();
 
 // Include plugins (all files in inc/plugins/)
+require_once("inc/plugins/plugin.php");
 foreach(glob("inc/plugins/*.php") as $filename) require_once($filename);
 
 // include Db
