@@ -2,7 +2,7 @@
 session_start();
 
 // Include plugins (all files in inc/plugins/)
-foreach(glob("inc/plugins/*.php") as $filename) include($filename);
+foreach(glob("inc/plugins/*.php") as $filename) if($filename !== "inc/plugins/index.php") require_once($filename);
 
 // include Db
 include("inc/dbwrite.php");
