@@ -1,4 +1,4 @@
-<?
+<?php
 
 // ToDo: class for static website information (like title, domain, webmaster)
 class Website {

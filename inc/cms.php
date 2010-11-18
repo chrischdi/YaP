@@ -1,4 +1,4 @@
-<?
+<?php
 // Include plugins (all files in inc/plugins/)
 foreach(glob("inc/plugins/*.php") as $filename) include($filename);
 

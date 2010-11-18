@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 
 // Include plugins (all files in inc/plugins/)

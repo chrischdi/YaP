@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Include Website
 include("inc/db.php");

@@ -1,4 +1,4 @@
-<?
+<?php
 
 // ToDo: class for site elements (information about current page
 class Page {
