@@ -1,4 +1,5 @@
 <?php
+require_once("inc/plugins/plugin.php");
 
 // "plugin" for plain html-formatted text
 // uses tinymce (if installed)
@@ -63,7 +64,10 @@ class HtmlPlugin extends Plugin{
 		return $post['html-content'];
 	}
 
-	function getEditorBody($main, $id, $title) {
+	function getEditorBody($main, $id, $title, $type, $checked="") {
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
 		$ret;
 		$ret .= $this->getStandardFormBeginning();
 		$ret .= "<h2>Page Content</h2><textarea name=\"html-content\">".$main."</textarea><br>\n";

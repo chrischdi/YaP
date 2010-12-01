@@ -10,7 +10,8 @@ class Plugin {
 	var $type;	//needs to be set
 	var $id;
 	var $title;
-	
+    var $checked;
+
 	function Plugin () {
 
 	}
@@ -31,14 +32,15 @@ class Plugin {
 		$ret;
 		$ret .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n";
 		$checked; //ToDo: function that cheks if visible or not. if visible $ckecked = " checked=\"checked\""
-		$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\"".$checked.">\n";
+		$ret .= "<input type=\"checkbox\" name=\"visible\" value=\"true\"".$this->checked.">\n";
 		$ret .= "&nbsp;visible\n";
 		$ret .= "<h2>Title</h2>\n";
 		$title; //ToDo: function that sets title if not a new id! --> $title = "content  of the titlenode"
-		$ret .= "<input type=\"text\" name=\"title\" value=\"".$title."\">\n";
+		$ret .= "<input type=\"text\" name=\"title\" value=\"".$this->title."\">\n";
+		$ret .= "<input type=\"hidden\" name=\"pid\" value=\"".$_GET['pid']."\">\n";
 		$ret .= "<input type=\"hidden\" name=\"edit\" value=\"page\">\n";
-		$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$_GET['type']."\">\n";
-		$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$this->id ."\">\n";
+		$ret .= "<input type=\"hidden\" name=\"type\" value=\"".$this->type."\">\n";
+		$ret .= "<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\">\n";
 		
 		return $ret;
 	}
@@ -50,7 +52,10 @@ class Plugin {
 		return $ret;
 	}
 
-	function getEditorBody($main, $id, $title) {
+	function getEditorBody($main, $id, $title, $type, $checked="") {
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
 		$ret;
 		$ret .= $this->getStandardFormBeginning();
 		$ret .= "";

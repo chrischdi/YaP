@@ -1,9 +1,10 @@
 <?php
 
-require_once("inc/dbwrite.php");
+require_once("inc/plugins/plugin.php");
+require_once("inc/dbcontentwrite.php");
 require_once("inc/plugins/html.php");
 
-class DbBlog extends dbwrite {
+class DbBlog extends dbcontentwrite {
 
     var $path;
 

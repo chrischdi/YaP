@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<database>
-	<website xml:id="default">
-		<title><![CDATA[YaP]]></title>
-		<domain><![CDATA[http://www.github.com/chrischdi/YaP]]></domain>
-		<webmaster><![CDATA[9er, chrischdi]]></webmaster>
-	</website>
-	<content xml:id="a1286461108" restriction="" visible="true">
-		<title><![CDATA[Home]]></title>
-		<type>html</type>
-		<author><![CDATA[admin]]></author>
-		<main><![CDATA[<h1>Home</h1>
-<p>Welcome to YaP!</p>]]></main>
-	</content>
-	<content xml:id="a1286461109" restriction="" visible="true">
-		<title><![CDATA[html-demo]]></title>
-		<type>html</type>
-		<author><![CDATA[someone]]></author>
-		<main><![CDATA[<h1>html</h1><p>Demo using html-plugin.</p>]]></main>
-	</content>
-	<content xml:id="a1286461110" restriction="" visible="true">
-		<title><![CDATA[iframe-demo]]></title>
-		<type>iframe</type>
-		<author><![CDATA[someone else]]></author>
-		<main><![CDATA[http://www.google.com/]]></main>
-	</content>
-<content xml:id="a1287614864" restriction="" visible="true"><title><![CDATA[Albumtest]]></title><author><![CDATA[YaP]]></author><type>album</type><main><![CDATA[img/user]]></main></content><content xml:id="a1287692800" restriction="" visible="true"><title><![CDATA[Beispiel]]></title><author><![CDATA[YaP]]></author><type>html</type><main><![CDATA[<h2>Lorem ipsum dolor</h2>
+<database><website xml:id="default"><title><![CDATA[YaP]]></title><domain><![CDATA[http://www.github.com/chrischdi/YaP]]></domain><webmaster><![CDATA[9er, chrischdi]]></webmaster></website><content xml:id="a1286461108" restriction="" visible="true"><title><![CDATA[Home]]></title><type>html</type><author><![CDATA[admin]]></author><main><![CDATA[<h1>Home</h1>
+<p>Welcome to YaP!</p>]]></main></content><content xml:id="a1286461109" restriction="" visible="true"><title><![CDATA[html-demo]]></title><type>html</type><author><![CDATA[someone]]></author><main><![CDATA[<h1>html</h1><p>Demo using html-plugin.</p>]]></main></content><content xml:id="a1286461110" restriction="" visible="true"><title><![CDATA[iframe-demo]]></title><type>iframe</type><author><![CDATA[someone else]]></author><main><![CDATA[http://www.google.com/]]></main></content><content xml:id="a1287614864" restriction="" visible="true"><title><![CDATA[Albumtest]]></title><author><![CDATA[YaP]]></author><type>album</type><main><![CDATA[img/user]]></main></content><content xml:id="a1287692800" restriction="" visible="true"><title><![CDATA[Beispiel]]></title><author><![CDATA[YaP]]></author><type>html</type><main><![CDATA[<h2>Lorem ipsum dolor</h2>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean&nbsp; commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et&nbsp; magnis dis parturient montes, nascetur ridiculus mus.</p>
 <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis,&nbsp; sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel,&nbsp; aliquet nec, vulputate eget, arcu.</p>
 <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.&nbsp; Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras&nbsp; dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend&nbsp; tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,&nbsp; enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a,</p>
@@ -32,4 +8,4 @@
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean&nbsp; commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et&nbsp; magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,&nbsp; ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat&nbsp; massa quis enim.</p>
 <p><img title="ASD" src="img/user/ist2_1467219-mp3-player.jpg" alt="test" width="380" height="253" />Donec pede justo, fringilla vel, aliquet nec, vulputate eget,&nbsp; arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.&nbsp; Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras&nbsp; dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend&nbsp; tellus.</p>
 <p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,&nbsp; enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.&nbsp; Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean&nbsp; imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper&nbsp; ultricies nisi.</p>
-<p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget&nbsp; condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem&nbsp; neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit&nbsp; id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae&nbsp; sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet&nbsp; orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit&nbsp; amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget&nbsp; bibendum sodales, augue velit cursus nunc,</p>]]></main></content><content xml:id="a1288645257" restriction="" visible="true"><title><![CDATA[Blog]]></title><author><![CDATA[YaP]]></author><type>blog</type><main><![CDATA[xml/blog.xml]]></main></content></database>
+<p>Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget&nbsp; condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem&nbsp; neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit&nbsp; id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae&nbsp; sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet&nbsp; orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit&nbsp; amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget&nbsp; bibendum sodales, augue velit cursus nunc,</p>]]></main></content><content xml:id="a1288645257" restriction="" visible="true"><title><![CDATA[Blog]]></title><author><![CDATA[YaP]]></author><type>blog</type><main><![CDATA[xml/blog.xml]]></main></content><content xml:id="a1291165579" restriction="" visible="true"><title><![CDATA[Album]]></title><author><![CDATA[YaP]]></author><type>album</type><main><![CDATA[img/user]]></main></content><content xml:id="a1291165593" restriction="" visible="true"><title><![CDATA[Test]]></title><author><![CDATA[YaP]]></author><type>html</type><main><![CDATA[asd]]></main></content><content xml:id="a1291165605" restriction="" visible="true"><title><![CDATA[Sub]]></title><author><![CDATA[YaP]]></author><type>html</type><main><![CDATA[Subpage]]></main></content></database>

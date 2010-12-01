@@ -39,7 +39,14 @@ class SearchPlugin {
 	}
 	
 	function getEditorBody($main) {
-		return;
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
+		$ret;
+		$ret .= $this->getStandardFormBeginning();
+		$ret .= "<h2>Page Content</h2><textarea name=\"html-content\">".$main."</textarea><br>\n";
+		$ret .= $this->getStandardFormEnd();
+		return $ret;
 	}
 	
 	function getEditorHead($main) {

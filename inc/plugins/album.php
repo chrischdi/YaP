@@ -1,8 +1,9 @@
 <?php
 
 // "plugin" for albums
+require_once("inc/plugins/plugin.php");
 
-class AlbumPlugin {
+class AlbumPlugin extends Plugin{
 
     var $maxLength = "225"; //in pixels
 
@@ -23,7 +24,7 @@ class AlbumPlugin {
     }
 
 	function getBody($main, $id) {
-        $db = new Db();
+        $db = new DbContent("xml/db.xml");
         $heading = $db->getPageTitle($id);
         $ret = "<h1>".$heading."</h1>";
 	    if(is_dir($main)) {
@@ -67,8 +68,15 @@ class AlbumPlugin {
 		return;
 	}
 	
-	function getEditorBody($main) {
-		return "<h2>Album URL</h2><input type=\"text\" name=\"album-url\" value=\"".$main."\"><br>\n";
+	function getEditorBody($main, $id, $title, $type, $checked="") {
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
+		$ret;
+		$ret .= $this->getStandardFormBeginning();
+		$ret .= "<h2>Album URL</h2><input type=\"text\" name=\"album-url\" value=\"".$main."\"><br>\n";
+		$ret .= $this->getStandardFormEnd();
+		return $ret;
 	}
 }
 

@@ -23,8 +23,13 @@ class SitemapPlugin {
 	}
 	
 	function getEditorBody() {
-		// ToDo (?) editor to edit ... well ... nothing really
-		return;
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
+		$ret;
+		$ret .= $this->getStandardFormBeginning();
+		$ret .= $this->getStandardFormEnd();
+		return $ret;
 	}
 	
 	function getEditorHead() {

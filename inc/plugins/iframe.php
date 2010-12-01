@@ -1,10 +1,11 @@
 <?php
+require_once("inc/plugins/plugin.php");
 
 // "plugin" for plain html-formatted text
 // returns main as it is as page-body
 // returns empty header
 
-class IframePlugin {
+class IframePlugin extends Plugin{
 	
 	function getBody($main) {
 		return "<iframe src=\"".$main."\">".$main."</iframe>";
@@ -19,9 +20,15 @@ class IframePlugin {
 		return $post['iframe-url'];
 	}
 	
-	function getEditorBody($main) {
-		// ToDo: return html to edit the iframe-url
-		return "<h2>Iframe URL</h2><input type=\"text\" name=\"iframe-url\" value=\"".$main."\"><br>\n";
+	function getEditorBody($main, $id, $title, $type, $checked="") {
+	    $this->checked = $checked;
+	    $this->type = $type;
+	    $this->title = $title;
+		$ret;
+		$ret .= $this->getStandardFormBeginning();
+		$ret .= "<h2>Iframe URL</h2><input type=\"text\" name=\"iframe-url\" value=\"".$main."\"><br>\n";
+		$ret .= $this->getStandardFormEnd();
+		return $ret;
 	}
 	
 	function getEditorHead($main) {

@@ -196,7 +196,7 @@ if(window.navigator.systemLanguage && !window.navigator.language) {
 }
 </script>
 
-<?php require_once('inc/cms.php'); ?>
+<?php include('inc/cms.php'); ?>
 <title><?php $cms->website->title(); ?> - <?php $cms->page->title(); ?></title>
 </head><body>
 <div id="headbar"></div>
