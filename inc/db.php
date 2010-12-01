@@ -1,118 +1,77 @@
 <?php
 
-require_once('inc/db.php');
-
 class Db {
 	
+	var $xmlPath;
 	var $xml;
 	
-	function Db() {
+	// Main functions. Needed at every access to a Db object
+	function __construct($xmlPath) {
+		$this->xmlPath = $xmlPath;
 		$this->xml = $this->getxml();
 	}
 	
 	function getxml(){
-		$database = "xml/db.xml";
+		$database = $this->xmlPath;
 		if (file_exists($database)){
 			$doc = new DOMDocument();
             $doc->validateOnParse = true;
+			$doc->preserveWhiteSpace = false;
 			$doc->load($database);
 			return $doc;
 		}
-		else echo "Database doesn't exist.";
-	}
-	
-	function getWebsiteTitle() {
-		$info = $this->xml->getElementsByTagName('website')->item(0);
-		return $info->getElementsByTagName('title')->item(0)->nodeValue;
-	}
-	
-	function getWebsiteDomain() {
-		$info = $this->xml->getElementsByTagName('website')->item(0);
-		return $info->getElementsByTagName('domain')->item(0)->nodeValue;
-	}
-	
-	function getWebsiteWebmaster() {
-		$info = $this->xml->getElementsByTagName('website')->item(0);
-		return $info->getElementsByTagName('webmaster')->item(0)->nodeValue;
-	}
-	
-	
-	function getSitemap() {
-		$sitemap = array();
-		$contents = $this->xml->getElementsByTagName('content');
-		foreach($contents as $content) {
-			// add an array to $sitemap for each page, containing id and title
-			if ($content->getAttribute('visible') == "true") {
-				$sitemap[] = array($content->getAttribute('xml:id'), $content->getElementsByTagName('title')->item(0)->nodeValue);
-			}
+		else {
+			echo "Database doesn't exist.";
+			return false;
 		}
-		return $sitemap;
 	}
 	
-	function isPage($id) {
-		// returns True if Page exists AND is has attribute visible="true"
-		$content = $this->xml->getElementByID($id);
-		if((isset($content)) AND ($content->getAttribute('visible') == "true")) return True;
-        	else return False;
-		
+	// Setter functions of nodes. (Getters not needed, because of using the standard ones)
+	function setNodeCData($id, $string, $part){
+    	if($this->xml->getElementByID($id) !== null) {
+            $string = $this->xml->createCDATASection($string);
+			$nodenew = $this->xml->createElement($part);
+			$nodenew->appendChild($string);
+			$content = $this->xml->getElementByID($id);
+			$node = $content->getElementsByTagName($part)->item(0);
+			$content->replaceChild($nodenew, $node);
+			return true;
+        }
+        else return false;
+    }
+
+	function setNode($id, $string, $part){
+    	if($this->xml->getElementByID($id) !== null) {
+        	$content = $this->xml->getElementByID($id);
+			$node = $content->getElementsByTagName($part)->item(0);
+			$node->nodeValue = $string;
+        }
+        else return false;
+    }
+
+	function setAttribute($id, $string, $part){
+    	if($this->xml->getElementByID($id) !== null) {
+		    $content = $this->xml->getElementByID($id);
+    		$content->setAttribute($part, $string);
+        }
+        else return false;
+    }
+
+	function deleteContent($id){
+    	if($this->xml->getElementByID($id) !== null) {
+	        $content = $this->xml->getElementByID($id);
+            $content->parentNode->removeChild($content);
+        }
+        else return false;
+    }
+    
+    function saveXML() {
+		$database = $this->xmlPath;
+		$this->xml->save($database);
+		unset($this->xml);
+		$this->xml = $this->getXML();
 	}
 	
-	function strInMain($id, $string) {
-		$content = $this->xml->getElementByID($id);
-		if(isset($content)) {
-			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
-			if (strpos($main, $string) !== False) return True;
-		}
-		return False;
-	}
-	
-	function getPageTitle($id) {
-		$content = $this->xml->getElementByID($id);
-		if(isset($content)) return $content->getElementsByTagName('title')->item(0)->nodeValue;
-        	else return "Fehler in getPageTitle()";
-	}
-	
-	function getPageAuthor($id) {
-		$content = $this->xml->getElementByID($id);
-		if(isset($content)) return $content->getElementsByTagName('author')->item(0)->nodeValue;
-        	else return "Fehler in getPageAuthor()";
-	}
-	
-	function getPageBody($id) {
-		global $PLUGINS;
-		$content = $this->xml->getElementByID($id);
-		if(isset($content)) {
-			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
-			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-			return $PLUGINS[$type]->getBody($main, $id);
-		}
-		else return "Fehler in getPageBody()";
-	}
-	
-	function getPageHead($id) {
-		global $PLUGINS;
-		$content = $this->xml->getElementByID($id);
-		if(isset($content)) {
-			$main = $content->getElementsByTagName('main')->item(0)->nodeValue;
-			$type = $content->getElementsByTagName('type')->item(0)->nodeValue;
-			return $PLUGINS[$type]->getHead($main);
-		}
-		else return "Fehler in getPageHead()";
-		
-	}
-	
-	function getPageIdByTitle($title) {
-		$contents = $this->xml->getElementsByTagName('content');
-		$id = -1;
-		
-		foreach($contents as $content){
-			if( $content->getElementsByTagName('title')->item(0)->nodeValue == $title) {
-				$id = $content->getAttribute('xml:id');
-				break;
-			}
-		}
-		return $id;
-	}
 }
 
 ?>

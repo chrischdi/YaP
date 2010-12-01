@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("inc/page.php");
 
@@ -13,7 +13,7 @@ class AdminUser extends Page {
 	
 	function AdminUser($db) {
 		
-		$dbuser		= &new DbUser();
+		$dbuser = &new DbUser("xml/user.xml");
 
 		// handle _POST
 		if ($_POST and ($_POST['edit'] == "user") and ($_POST['delete'] == "true")) {

@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 
 // Include plugins (all files in inc/plugins/)
@@ -6,9 +6,9 @@ require_once("inc/plugins/plugin.php");
 foreach(glob("inc/plugins/*.php") as $filename) require_once($filename);
 
 // include Db
-require_once("inc/dbwrite.php");
+require_once("inc/dbcontentwrite.php");
 require_once("inc/dbuser.php");
-
+require_once("inc/dbnavwrite.php");
 require_once("inc/adminnav.php");
 require_once("inc/website.php");
 require_once("inc/adminlogin.php");
@@ -19,11 +19,11 @@ require_once("inc/adminbrowser.php");
 
 
 class AdminPanel {
-	
+	var $dbPath = "xml/db.xml";
 	
 	function AdminPanel() {
 		
-		$dbuser = &new DbUser();
+		$dbuser = &new DbUser("xml/user.xml");
 		
 		if (isset($_SESSION['username'])) {
 		
@@ -46,8 +46,9 @@ class AdminPanel {
 			
 		}
 		
-		// get database
-		$db = &new DbWrite();
+		// get databases
+		$db = &new DbContentWrite($this->dbPath);
+   		$dbnav = &new DbNavWrite("xml/content.xml");
 		
 		// if _POST, set _GET to suitable overview-page
 		// _POST-data will be handled by $this->page (constructor)
@@ -73,7 +74,7 @@ class AdminPanel {
 		// but page-type depends on _GET
 		switch ($_GET['edit']) {
 			case "page":
-				$this->page = &new AdminPage($db);
+				$this->page = &new AdminPage($db, $dbnav);
 				break;
 			case "user":
 				$this->page = &new AdminUser($db);

@@ -1,9 +1,10 @@
-<?
+<?php
 // Include plugins (all files in inc/plugins/)
+require_once("inc/plugins/plugin.php");
 foreach(glob("inc/plugins/*.php") as $filename) require_once($filename);
 
 // Include Db
-require_once("inc/db.php");
+require_once("inc/dbcontent.php");
 
 // Include Nav
 require_once("inc/nav.php");
@@ -15,7 +16,7 @@ require_once("inc/page.php");
 require_once("inc/website.php");
 
 class Cms {
-	
+	var $dbPath = "xml/db.xml";
 	/*
 	*  Class for main cms functions (reading and serving content)
 	*  Status: created function stubs
@@ -34,7 +35,7 @@ class Cms {
 	function Cms() {
 		
 		// get database
-		$db		= &new Db();
+		$db		= &new DbContent($this->dbPath);
 
 		// get instances of container-classesp
 		$this->website	= &new Website($db);

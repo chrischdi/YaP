@@ -156,6 +156,14 @@ table.user {
 .user #item-name {
     width:130px;
 }
+.subnode{
+padding-left: 10px;
+}
+.subnode .subnode{
+padding-left: 2em;
+}
+
+
 
 </style>
 <title><?php $ap->website->title(); ?> AdminPanel - <?php $ap->page->title(); ?></title>

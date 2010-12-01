@@ -56,7 +56,7 @@ html, body {
 }
 
 #nav {
-    margin-top: -23px;
+    margin-top: -38px;
 }
 
 #main {
@@ -86,7 +86,6 @@ p {
 }
 
 #nav a:link, #nav a:visited, #nav a:hover, #nav a:active {
-    margin: 0 2px;
 	color: #eeeeee;
 	text-decoration:none;
 }
@@ -97,26 +96,122 @@ p {
 
 iframe {
     width: 100%;
+	margin-top: 100px;
     min-height: 510px;
     height: auto !important;
     height: 510px;
 }
+
+#nav li {
+    margin: 0 6px;
+	list-style: none;
+    float: left;
+}
+
+#nav ul li ul li {
+	list-style:decimal outside;
+	float: none;
+	display: block;
+}
+#nav {display: inline-block; padding: 0;}
+#nav ul ul {
+	visibility:hidden;
+	background-color: #3B5998;
+}
+
+#nav ul {	height: auto;
+}
+
+#nav ul li a { text-align: center;}
+
+ul {
+	padding: 0px;
+	padding-left: 2px;
+}
+
+#nav ul li:hover ul {
+	visibility: visible;
+}
+
+#nav ul li{
+	border: 2px none;
+}
+
+#nav ul li:hover {
+	background-color: #3B5998;
+
+}
+
+#nav ul li {
+	position: relative;
+}
+
+.nav1 ul {
+	padding: 6px;
+	position: relative;
+}
+nav1 ul * {
+	padding: 0px;
+	position: relative;
+}
+
+#nav ul li {
+	list-style: none;
+    float: left;
+	text-align:left;
+}
+
 </style>
-<?php include "inc/cms.php"; ?>
+<script type="text/javascript">
+if(window.navigator.systemLanguage && !window.navigator.language) {
+  function hoverIE() {
+    var LI = document.getElementById("navi").firstChild;
+    do {
+      if (sucheUL(LI.firstChild)) {
+        LI.onmouseover=einblenden; LI.onmouseout=ausblenden;
+      }
+      LI = LI.nextSibling;
+    }
+    while(LI);
+  }
+
+  function sucheUL(UL) {
+    do {
+      if(UL) UL = UL.nextSibling;
+      if(UL && UL.nodeName == "UL") return UL;
+    }
+    while(UL);
+    return false;
+  }
+
+  function einblenden() {
+    var UL = sucheUL(this.firstChild);
+    UL.style.display = "block"; UL.style.backgroundColor = "silver";
+  }
+  function ausblenden() {
+    sucheUL(this.firstChild).style.display = "none";
+  }
+
+  window.onload=hoverIE;
+}
+</script>
+
+<?php require_once('inc/cms.php'); ?>
 <title><?php $cms->website->title(); ?> - <?php $cms->page->title(); ?></title>
 </head><body>
 <div id="headbar"></div>
 <div id="wrapper">
-	<div id="header">
+	<div style="z-index:0;" id="header">
 	    <div>
 	        <h1><a href="<?php $cms->website->domain(); ?>"><?php $cms->website->title(); ?></a></h1>
-	        <div id="nav">
+		</div>
+		<div id="nav">
 <?php $cms->nav->menu(); ?>
 	        </div>
-	    </div>
 	</div>
-	<div id="main">
+	<div style="z-index:1;" id="main">
 		<div id="content">
+<?php /* $cms->nav->menu(); */?>
 <?php $cms->page->body(); ?>
             <div style="clear: both;">&nbsp;</div>
 		<br>&nbsp;
